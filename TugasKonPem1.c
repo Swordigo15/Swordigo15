@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 int main(void){
 	unsigned int counter;
@@ -7,7 +8,7 @@ int main(void){
 	int average;
 	
 	total = 0;
-	counter = 1;
+	counter = 0;
 
 	while(counter <= 10){
 		printf("%s", "Enter grade: ");
@@ -18,20 +19,23 @@ int main(void){
 
 	average = total / counter;
   
+  printf("%d", average);
+  printf(" ");
   printf("your grade is ");
 	if(average >= 90){
-		print("A");
+		printf("A");
 	}
 	else if(average >= 80){
-		print("B");
+		printf("B");
 	}
 	else if(average >= 70){
-		print("C");
+		printf("C");
 	}
 	else if(average >= 60){
-		print("D");
+		printf("D");
 	}
 	else if(average < 60){
-		print("E");
+		printf("E");
 	}
 }
+
