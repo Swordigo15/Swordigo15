@@ -7,6 +7,8 @@ int main()
     
     char opt;
     
+    int answer;
+    
     for(int i; i > -1; i++){
         printf("Number 1 : ");
         scanf("%d", &num1);
@@ -17,17 +19,26 @@ int main()
         
         switch(opt){
             case '+':
-                printf("Plus");
+                answer = num1 + num2;
                 break;
             case '-':
-                printf("Minus");
-                break;
-            case '/':
-                printf("Per");
+                answer = num1 - num2;
                 break;
             case '*':
-                printf("Times");
+                answer = num1 * num2;
+                break;
+            case '/':
+                answer = (float)num1 / num2;
+                answer = (float)answer;
+                break;
+            case '%':
+                answer = num1 % num2;
+                break;
+            default :
+                printf("I don't know the operation");
                 break;
         }
+        
+        printf("%d %d %d\n",num1, num2, answer);
     }
 }
