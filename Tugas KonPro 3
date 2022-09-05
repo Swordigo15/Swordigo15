@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int main()
+{
+    int num1;
+    int num2;
+    
+    char opt;
+    
+    for(int i; i > -1; i++){
+        printf("Number 1 : ");
+        scanf("%d", &num1);
+        printf("Number 2 : ");
+        scanf("%d", &num2);
+        printf("Operation : ");
+        scanf("%s", &opt);
+        
+        switch(opt){
+            case '+':
+                printf("Plus");
+                break;
+            case '-':
+                printf("Minus");
+                break;
+            case '/':
+                printf("Per");
+                break;
+            case '*':
+                printf("Times");
+                break;
+        }
+    }
+}
