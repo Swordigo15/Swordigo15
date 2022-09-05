@@ -8,10 +8,10 @@ int main(void){
 	int average;
 	
 	total = 0;
-	counter = 0;
+	counter = 1;
 
 	while(counter <= 10){
-		printf("%s", "Enter grade: ");
+		printf("Enter grade: ");
 		scanf("%d", &grade);
 		total += grade;
 		counter++;
@@ -19,8 +19,8 @@ int main(void){
 
 	average = total / counter;
   
-  printf("%d", average);
-  printf(" ");
+  printf("%d/n", average);
+
   printf("your grade is ");
 	if(average >= 85){
 		printf("A");
