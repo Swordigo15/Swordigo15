@@ -22,19 +22,28 @@ int main(void){
   printf("%d", average);
   printf(" ");
   printf("your grade is ");
-	if(average >= 90){
+	if(average >= 85){
 		printf("A");
 	}
 	else if(average >= 80){
-		printf("B");
+		printf("A-");
+	}
+	else if(average >= 75){
+		printf("B+");
 	}
 	else if(average >= 70){
-		printf("C");
+		printf("B");
+	}
+	else if(average >= 65){
+		printf("C+");
 	}
 	else if(average >= 60){
+		printf("C");
+	}
+	else if(average >= 55){
 		printf("D");
 	}
-	else if(average < 60){
+	else if(average < 55){
 		printf("E");
 	}
 }
