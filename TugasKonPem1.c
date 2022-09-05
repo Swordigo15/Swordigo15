@@ -19,7 +19,7 @@ int main(void){
 
 	average = total / counter;
   
-  printf("%d/n", average);
+  printf("%d ", average);
 
   printf("your grade is ");
 	if(average >= 85){
