@@ -17,7 +17,7 @@ int main(void){
 		counter++;
 	}
 
-	average = total / counter;
+	average = total / counter - 1;
   
   printf("%d ", average);
 
