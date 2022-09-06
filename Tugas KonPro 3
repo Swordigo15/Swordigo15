@@ -10,15 +10,8 @@ int main()
     
     for(int i; i > -1; i++){
         
-        printf("=======================KALKULATOR=======================\n");
+        puts("=======================KALKULATOR=======================");
         scanf("%f %s %f", &num1, &opt, &num2);
-        
-        /*printf("Number 1 : ");
-        scanf("%f", &num1);
-        printf("Number 2 : ");
-        scanf("%f", &num2);
-        printf("Operation : ");
-        scanf("%s", &opt);*/
         
         switch(opt){
             case '+':
@@ -33,12 +26,15 @@ int main()
             case '/':
                 answer = num1 / num2;
                 break;
+            case '%':
+                answer = (int)num1 % (int)num2;
+                break;
             default :
                 printf("I don't know the operation");
                 break;
         }
         
         printf(" = %.0f\n", answer);
-        puts("");
+        puts("========================================================");
     }
 }
