@@ -2,8 +2,7 @@
 
 int main()
 {
-    float num1;
-    float num2;
+    float num1, num2;
     
     char opt;
     
@@ -11,12 +10,15 @@ int main()
     
     for(int i; i > -1; i++){
         
-        printf("Number 1 : ");
+        printf("=======================KALKULATOR=======================\n");
+        scanf("%f %s %f", &num1, &opt, &num2);
+        
+        /*printf("Number 1 : ");
         scanf("%f", &num1);
         printf("Number 2 : ");
         scanf("%f", &num2);
         printf("Operation : ");
-        scanf("%s", &opt);
+        scanf("%s", &opt);*/
         
         switch(opt){
             case '+':
@@ -36,6 +38,7 @@ int main()
                 break;
         }
         
-        printf("%.2f %.2f %.2f\n",num1, num2, answer);
+        printf(" = %.0f\n", answer);
+        puts("");
     }
 }
