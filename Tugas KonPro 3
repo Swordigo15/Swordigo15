@@ -2,6 +2,7 @@
 
 int main()
 {
+    int floatLenght;
     float num1, num2;
     
     char opt, out;
@@ -18,6 +19,9 @@ int main()
         puts("  3. [*] Perkalian");
         puts("  4. [/] Pembagian");
         puts("  5. [\%] sisa");
+        puts("");
+        printf("Panjanag angka dibelakang koma : ");
+        scanf("%d", &floatLenght);
         puts("");
         scanf("%f %s %f", &num1, &opt, &num2);
         
@@ -42,7 +46,23 @@ int main()
                 break;
         }
         
-        printf(" = %.0f\n", answer);
+        switch(floatLenght){
+            case 0:
+                printf(" = %.0f\n", answer);
+                break;
+            case 1:
+                printf(" = %.1f\n", answer);
+                break;
+            case 2:
+                printf(" = %.2f\n", answer);
+                break;
+            case 3:
+                printf(" = %.3f\n", answer);
+                break;
+            default:
+                printf(" = %.4f\n", answer);
+                break;
+        }
         
         printf("Lanjutkan? y/n ");
         scanf("%s", &out);
