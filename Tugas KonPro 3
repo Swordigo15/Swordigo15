@@ -10,7 +10,7 @@ int main()
     
     for(int i; i > -1; i++){
         
-        puts("=======================KALKULATOR=======================");
+        puts("=======================KALKULATOR============================");
         puts("Angka pertama [spasi] operasi [spasi] angka kedua, lalu Enter");
         puts("Jenis operasi :");
         puts("  1. [+] Penjumlahan");
@@ -38,13 +38,13 @@ int main()
                 answer = (int)num1 % (int)num2;
                 break;
             default :
-                printf("I don't know the operation");
+                printf("Saya tidak mengerti operasi itu.");
                 break;
         }
         
         printf(" = %.0f\n", answer);
         
-        printf("Continue? y/n ");
+        printf("Lanjutkan? y/n ");
         scanf("%s", &out);
         
         switch(out){
@@ -56,6 +56,7 @@ int main()
                 i = -2;
                 break;
         }
-        puts("========================================================");
+        
+        puts("=============================================================");
     }
 }
