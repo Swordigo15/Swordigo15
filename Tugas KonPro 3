@@ -4,13 +4,21 @@ int main()
 {
     float num1, num2;
     
-    char opt;
+    char opt, out;
     
     float answer;
     
     for(int i; i > -1; i++){
         
         puts("=======================KALKULATOR=======================");
+        puts("Angka pertama [spasi] operasi [spasi] angka kedua, lalu Enter");
+        puts("Jenis operasi :");
+        puts("  1. [+] Penjumlahan");
+        puts("  2. [-] Pengurangan");
+        puts("  3. [*] Perkalian");
+        puts("  4. [/] Pembagian");
+        puts("  5. [\%] sisa");
+        puts("");
         scanf("%f %s %f", &num1, &opt, &num2);
         
         switch(opt){
@@ -35,6 +43,19 @@ int main()
         }
         
         printf(" = %.0f\n", answer);
+        
+        printf("Continue? y/n ");
+        scanf("%s", &out);
+        
+        switch(out){
+            case 'y':
+            case 'Y':
+                break;
+            case 'n':
+            case 'N':
+                i = -2;
+                break;
+        }
         puts("========================================================");
     }
 }
