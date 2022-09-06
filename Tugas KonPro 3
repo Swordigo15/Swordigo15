@@ -2,18 +2,19 @@
 
 int main()
 {
-    int num1;
-    int num2;
+    float num1;
+    float num2;
     
     char opt;
     
-    int answer;
+    float answer;
     
     for(int i; i > -1; i++){
+        
         printf("Number 1 : ");
-        scanf("%d", &num1);
+        scanf("%f", &num1);
         printf("Number 2 : ");
-        scanf("%d", &num2);
+        scanf("%f", &num2);
         printf("Operation : ");
         scanf("%s", &opt);
         
@@ -28,17 +29,13 @@ int main()
                 answer = num1 * num2;
                 break;
             case '/':
-                answer = (float)num1 / num2;
-                answer = (float)answer;
-                break;
-            case '%':
-                answer = num1 % num2;
+                answer = num1 / num2;
                 break;
             default :
                 printf("I don't know the operation");
                 break;
         }
         
-        printf("%d %d %d\n",num1, num2, answer);
+        printf("%.2f %.2f %.2f\n",num1, num2, answer);
     }
 }
