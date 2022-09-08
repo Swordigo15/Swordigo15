@@ -1,50 +1,41 @@
 #include <stdio.h>
+#include <stdbool.h>
+
+int Hitung(int, int, char);
 
 int main()
 {
     int floatLenght;
+    
     float num1, num2;
-    
-    char opt, out;
-    
     float answer;
     
+    char opt, out[3];
+    
+    bool isLanjut = false;
+    
     for(int i; i > -1; i++){
-        
-        puts("=======================KALKULATOR============================");
-        puts("Angka pertama [spasi] operasi [spasi] angka kedua, lalu Enter");
-        puts("Jenis operasi :");
-        puts("  1. [+] Penjumlahan");
-        puts("  2. [-] Pengurangan");
-        puts("  3. [*] Perkalian");
-        puts("  4. [/] Pembagian");
-        puts("  5. [\%] sisa");
-        puts("");
-        printf("Panjang angka dibelakang koma : ");
-        scanf("%d", &floatLenght);
-        puts("");
-        scanf("%f %s %f", &num1, &opt, &num2);
-        
-        switch(opt){
-            case '+':
-                answer = num1 + num2;
-                break;
-            case '-':
-                answer = num1 - num2;
-                break;
-            case '*':
-                answer = num1 * num2;
-                break;
-            case '/':
-                answer = num1 / num2;
-                break;
-            case '%':
-                answer = (int)num1 % (int)num2;
-                break;
-            default :
-                printf("Saya tidak mengerti operasi itu.");
-                break;
+        if(isLanjut){
+            printf("%f ", num1);
+            scanf("%s %f", &opt, &num2);
         }
+        else{
+            puts("=======================KALKULATOR============================");
+            puts("Angka pertama [spasi] operasi [spasi] angka kedua, lalu Enter");
+            puts("Jenis operasi :");
+            puts("  1. [+] Penjumlahan");
+            puts("  2. [-] Pengurangan");
+            puts("  3. [*] Perkalian");
+            puts("  4. [/] Pembagian");
+            puts("  5. [\%] sisa");
+            puts("");
+            printf("Panjang angka dibelakang koma : ");
+            scanf("%d", &floatLenght);
+            puts("");
+            scanf("%f %s %f", &num1, &opt, &num2);
+        }
+        
+        answer = Hitung(num1, num2, opt);
         
         switch(floatLenght){
             case 0:
@@ -64,12 +55,18 @@ int main()
                 break;
         }
         
-        printf("Lanjutkan? y/n ");
-        scanf("%s", &out);
+        printf("Lanjutkan Operasi? y/n/new ");
+        scanf("%s", out);
         
-        switch(out){
+        switch(out[3]){
             case 'y':
             case 'Y':
+                isLanjut = true;
+                num1 = answer;
+                break;
+            case 'New':
+            case 'new':
+                isLanjut = false;
                 break;
             case 'n':
             case 'N':
@@ -79,4 +76,29 @@ int main()
         
         puts("=============================================================");
     }
+}
+
+int Hitung(int m, int n, char o){
+    switch(o){
+        case '+':
+            return m + n;
+            break;
+        case '-':
+            return m - n;
+            break;
+        case '*':
+            return m * n;
+            break;
+        case '/':
+            return m / n;
+            break;
+        case '%':
+            return (int)m % n;
+            break;
+        default :
+            printf("Saya tidak mengerti operasi itu.");
+            return 0;
+            break;
+    }
+    return 0;
 }
