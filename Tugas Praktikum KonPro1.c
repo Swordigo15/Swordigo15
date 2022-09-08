@@ -3,6 +3,8 @@
 int main()
 {
     int charLenght;
+    puts("=======WELCOME TO MASSAGE ENCRIPTOE v.1.0.0=======");
+    puts("Space is counted as 1");
     printf("Character amount in the text is "); scanf("%d\n", &charLenght);
     
     char text[charLenght];
@@ -135,9 +137,7 @@ int main()
                 break;
         }
         
-        
-        EncriptedMassage[i] += key[0] + key[1];
-        EncriptedMassage[i] *= key[3] + key[4];
+        EncriptedMassage[i] += key[0] * key[1] * key[2] * key[3];
         printf("%d", EncriptedMassage[i]);
     }
 }
