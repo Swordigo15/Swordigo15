@@ -9,6 +9,7 @@ int main()
     printf("Character amount in the text is "); scanf("%d\n", &charLenght);
     
     char text[charLenght];
+    printf("Enter your text : ");
     scanf("%s", text);
     
     unsigned int key[4];
