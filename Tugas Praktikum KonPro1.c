@@ -4,6 +4,7 @@ int main()
 {
     int charLenght;
     puts("=======WELCOME TO MASSAGE ENCRIPTOR v.1.0.0=======");
+    puts("---------- by Muhammad Annys (L0122102) ----------");
     puts("Space is counted as 1");
     printf("Character amount in the text is "); scanf("%d\n", &charLenght);
     
