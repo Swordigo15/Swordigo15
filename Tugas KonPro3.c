@@ -86,6 +86,7 @@ int Hitung(int m, int n, char o){
         case '-':
             return m - n;
             break;
+        case '*':
         case 'x':
             return m * n;
             break;
