@@ -25,7 +25,7 @@ int main()
             puts("Jenis operasi :");
             puts("  1. [+] Penjumlahan");
             puts("  2. [-] Pengurangan");
-            puts("  3. [*] Perkalian");
+            puts("  3. [x] Perkalian");
             puts("  4. [/] Pembagian");
             puts("  5. [\%] sisa");
             puts("");
@@ -86,7 +86,7 @@ int Hitung(int m, int n, char o){
         case '-':
             return m - n;
             break;
-        case '*':
+        case 'x':
             return m * n;
             break;
         case '/':
