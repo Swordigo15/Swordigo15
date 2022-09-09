@@ -16,6 +16,7 @@ int main()
     
     for(int i; i > -1; i++){
         if(isLanjut == true){
+            puts("\"Hasil sebelumnya\" [spasi] operasi [spasi] angka kedua, lalu Enter");
             printf("%f ", num1);
             scanf("%s %f", &opt, &num2);
         }
@@ -55,7 +56,10 @@ int main()
                 break;
         }
         
-        printf("Lanjutkan Operasi? y/n ");
+        puts("y untuk melanjutkan operasi.");        
+        puts("o untuk memulai operasi baru.");
+        puts("n untuk berhenti.");
+        printf("Lanjutkan Operasi? y/n/o ");
         scanf("%s", &out);
         
         switch(out){
