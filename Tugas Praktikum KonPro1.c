@@ -3,22 +3,30 @@
 int main()
 {
     int charLenght;
-    puts("=======WELCOME TO MASSAGE ENCRIPTOE v.1.0.0=======");
+    puts("=======WELCOME TO MASSAGE ENCRIPTOR v.1.0.0=======");
     puts("Space is counted as 1");
     printf("Character amount in the text is "); scanf("%d\n", &charLenght);
     
     char text[charLenght];
     scanf("%s", text);
     
-    int key[4];
+    unsigned int key[4];
+    unsigned int passKey;
     
     for(int i = 0; i < 4; i++){
-        printf("Key%d : ", i + 1); scanf("%d", &key[0]);
+        printf("Key%d : ", i + 1); scanf("%d", &key[i]);
         
-        if(key[0] < 0 || key[0] > 9)
+        passKey += key[i];
+        printf("%d\n", passKey);
+        
+        if(key[i] < 0 || key[i] > 9){
             puts("Key must be between 1 and 9");
+            passKey -= key[i];
+            i--;
+        }
     }
     
+    printf("\nYour Encripted massage is ");
     int EncriptedMassage[charLenght];
     for(int i = 0; i < charLenght; i++){
         switch(text[i]){
@@ -137,7 +145,13 @@ int main()
                 break;
         }
         
-        EncriptedMassage[i] += key[0] * key[1] * key[2] * key[3];
+        EncriptedMassage[i] += passKey;
+            
         printf("%d", EncriptedMassage[i]);
     }
+    
+    printf("\nYour password is ");
+    
+    for(int j = 0; j < 4; j++)
+        printf("%d", key[j]);
 }
