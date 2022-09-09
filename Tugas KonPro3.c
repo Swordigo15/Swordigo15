@@ -10,16 +10,16 @@ int main()
     float num1, num2;
     float answer;
     
-    char opt, out[3];
+    char opt, out;
     
     bool isLanjut = false;
     
     for(int i; i > -1; i++){
-        if(isLanjut){
+        if(isLanjut == true){
             printf("%f ", num1);
             scanf("%s %f", &opt, &num2);
         }
-        else{
+        else if(isLanjut == false){
             puts("=======================KALKULATOR============================");
             puts("Angka pertama [spasi] operasi [spasi] angka kedua, lalu Enter");
             puts("Jenis operasi :");
@@ -55,19 +55,19 @@ int main()
                 break;
         }
         
-        printf("Lanjutkan Operasi? y/n/new ");
-        scanf("%s", out);
+        printf("Lanjutkan Operasi? y/n ");
+        scanf("%s", &out);
         
-        switch(out[3]){
+        switch(out){
             case 'y':
             case 'Y':
                 isLanjut = true;
                 num1 = answer;
                 break;
-            case 'New':
+            /*case 'New':
             case 'new':
                 isLanjut = false;
-                break;
+                break;*/
             case 'n':
             case 'N':
                 i = -2;
