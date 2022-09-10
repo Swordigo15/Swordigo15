@@ -169,6 +169,8 @@ int main()
         
         for(int j = 0; j < 4; j++)
             printf("%d ", key[j]);
+            
+        puts("Please write it!");
     }
     else if(choice == 2){
         int codeLenght;
