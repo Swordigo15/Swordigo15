@@ -9,8 +9,9 @@ int main()
     
     if(choice == 1){
         int charLenght;
-        puts("========WELCOME TO WORD ENCRIPTOR v.1.0.0========");
-        puts("--------- by Muhammad Annys (L0122102) ----------");
+        puts("========WELCOME TO MASSAGE ENCRIPTOR v.1.0.0========");
+        puts("----------- by Muhammad Annys (L0122102) -----------");
+        puts("Use \'_\' for space.");
         printf("Character amount in the text is "); scanf("%d", &charLenght);
         
         char text[charLenght];
@@ -167,11 +168,11 @@ int main()
         printf("\nYour password is ");
         
         for(int j = 0; j < 4; j++)
-            printf("%d", key[j]);
+            printf("%d ", key[j]);
     }
     else if(choice == 2){
         int codeLenght;
-        puts("========WELCOME TO WORD INTERPRETER v.1.0.0========");
+        puts("======WELCOME TO MASSAGE INTERPRETER v.1.0.0=======");
         puts("---------- by Muhammad Annys (L0122102) -----------");
         printf("The amount of number in code "); scanf("%d", &codeLenght);
         
