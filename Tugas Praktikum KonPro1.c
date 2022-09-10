@@ -184,14 +184,118 @@ int main()
         puts("Write the code here.");
         for(int i = 0; i < codeLenght; i++){
             scanf("%d", &code[i]);
+            
         }
-        
+
         puts("\nPuts space every number.");
         puts("write the password(4 Numbers)");
-        scanf("%d", key);
-        
-        for(int i = 0; i < codeLenght; i++){
+        for(int i = 0; i < 4; i++){
+            scanf("%d", &key[i]);
             
+            passKey += key[i];
+        }
+        
+        char massage;
+        for(int i = 0; i < codeLenght; i++){
+            code[i] -= passKey;
+            switch(code[i]){
+                case 10:
+                    massage = 'a';
+                    break;
+                case 11:
+                    massage = 'b';
+                    break;
+                case 12:
+                    massage = 'c';
+                    break;
+                case 13:
+                    massage = 'd';
+                    break;
+                case 14:
+                    massage = 'e';
+                    break;
+                //================
+                case 15:
+                    massage = 'f';
+                    break;
+                case 16:
+                    massage = 'g';
+                    break;
+                case 17:
+                    massage = 'h';
+                    break;
+                case 18:
+                    massage = 'i';
+                    break;
+                case 19:
+                    massage = 'j';
+                    break;
+                //================
+                case 20:
+                    massage = 'k';
+                    break;
+                case 21:
+                    massage = 'l';
+                    break;
+                case 22:
+                    massage = 'm';
+                    break;
+                case 23:
+                    massage = 'n';
+                    break;
+                case 24:
+                    massage = 'o';
+                    break;
+                //================
+                case 25:
+                    massage = 'p';
+                    break;
+                case 26:
+                    massage = 'q';
+                    break;
+                case 27:
+                    massage = 'r';
+                    break;
+                case 28:
+                    massage = 's';
+                    break;
+                case 29:
+                    massage = 't';
+                    break;
+                //================
+                case 30:
+                    massage = 'u';
+                    break;
+                case 31:
+                    massage = 'v';
+                    break;
+                case 32:
+                    massage = 'w';
+                    break;
+                case 33:
+                    massage = 'x';
+                    break;
+                case 34:
+                    massage = 'y';
+                    break;
+                //================
+                case 35:
+                    massage = 'z';
+                    break;
+                case 36:
+                    massage = ',';
+                    break;
+                case 37:
+                    massage = '.';
+                    break;
+                case 63:
+                default:
+                    massage = ' ';
+                    break;
+                //================
+            }
+            
+            printf("%s", &massage);
         }
     }
     else{
