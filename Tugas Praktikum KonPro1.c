@@ -39,122 +39,129 @@ int main()
             switch(text[i]){
                 case 'A':
                 case 'a':
-                    EncriptedMassage[i] = 1;
+                    EncriptedMassage[i] = 10;
                     break;
                 case 'B':
                 case 'b':
-                    EncriptedMassage[i] = 2;
+                    EncriptedMassage[i] = 11;
                     break;
                 case 'C':
                 case 'c':
-                    EncriptedMassage[i] = 3;
+                    EncriptedMassage[i] = 12;
                     break;
                 case 'D':
                 case 'd':
-                    EncriptedMassage[i] = 4;
+                    EncriptedMassage[i] = 13;
                     break;
                 case 'E':
                 case 'e':
-                    EncriptedMassage[i] = 5;
+                    EncriptedMassage[i] = 14;
                     break;
                 //===============================
                 case 'F':
                 case 'f':
-                    EncriptedMassage[i] = 6;
+                    EncriptedMassage[i] = 15;
                     break;
                 case 'G':
                 case 'g':
-                    EncriptedMassage[i] = 7;
+                    EncriptedMassage[i] = 16;
                     break;
                 case 'H':
                 case 'h':
-                    EncriptedMassage[i] = 8;
+                    EncriptedMassage[i] = 17;
                     break;
                 case 'I':
                 case 'i':
-                    EncriptedMassage[i] = 9;
+                    EncriptedMassage[i] = 18;
                     break;
                 case 'J':
                 case 'j':
-                    EncriptedMassage[i] = 10;
+                    EncriptedMassage[i] = 19;
                     break;
                 //===============================
                 case 'K':
                 case 'k':
-                    EncriptedMassage[i] = 11;
+                    EncriptedMassage[i] = 20;
                     break;
                 case 'L':
                 case 'l':
-                    EncriptedMassage[i] = 12;
+                    EncriptedMassage[i] = 21;
                     break;
                 case 'M':
                 case 'm':
-                    EncriptedMassage[i] = 13;
+                    EncriptedMassage[i] = 22;
                     break;
                 case 'N':
                 case 'n':
-                    EncriptedMassage[i] = 14;
+                    EncriptedMassage[i] = 23;
                     break;
                 case 'O':
                 case 'o':
-                    EncriptedMassage[i] = 15;
+                    EncriptedMassage[i] = 24;
                     break;
                 //===============================
                 case 'P':
                 case 'p':
-                    EncriptedMassage[i] = 16;
+                    EncriptedMassage[i] = 25;
                     break;
                 case 'Q':
                 case 'q':
-                    EncriptedMassage[i] = 17;
+                    EncriptedMassage[i] = 26;
                     break;
                 case 'R':
                 case 'r':
-                    EncriptedMassage[i] = 18;
+                    EncriptedMassage[i] = 27;
                     break;
                 case 'S':
                 case 's':
-                    EncriptedMassage[i] = 19;
+                    EncriptedMassage[i] = 28;
                     break;
                 case 'T':
                 case 't':
-                    EncriptedMassage[i] = 20;
+                    EncriptedMassage[i] = 29;
                     break;
                 //===============================
                 case 'U':
                 case 'u':
-                    EncriptedMassage[i] = 21;
+                    EncriptedMassage[i] = 30;
                     break;
                 case 'V':
                 case 'v':
-                    EncriptedMassage[i] = 22;
+                    EncriptedMassage[i] = 31;
                     break;
                 case 'W':
                 case 'w':
-                    EncriptedMassage[i] = 23;
+                    EncriptedMassage[i] = 32;
                     break;
                 case 'X':
                 case 'x':
-                    EncriptedMassage[i] = 24;
+                    EncriptedMassage[i] = 33;
                     break;
                 case 'Y':
                 case 'y':
-                    EncriptedMassage[i] = 25;
+                    EncriptedMassage[i] = 34;
                     break;
                 //===============================
                 case 'Z':
                 case 'z':
-                    EncriptedMassage[i] = 26;
+                    EncriptedMassage[i] = 35;
+                    break;
+                case ',':
+                    EncriptedMassage[i] = 36;
+                    break;
+                case '.':
+                    EncriptedMassage[i] = 37;
                     break;
                 case ' ':
+                case '_':
                 default:
-                    EncriptedMassage[i] = 0;
+                    EncriptedMassage[i] = 63;
                     break;
             }
             
             EncriptedMassage[i] += passKey;
                 
-            printf("%d", EncriptedMassage[i]);
+            printf("%d ", EncriptedMassage[i]);
         }
         
         printf("\nYour password is ");
@@ -184,121 +191,7 @@ int main()
         scanf("%d", key);
         
         for(int i = 0; i < codeLenght; i++){
-            switch(text[i]){
-                case 'A':
-                case 'a':
-                    EncriptedMassage[i] = 1;
-                    break;
-                case 'B':
-                case 'b':
-                    EncriptedMassage[i] = 2;
-                    break;
-                case 'C':
-                case 'c':
-                    EncriptedMassage[i] = 3;
-                    break;
-                case 'D':
-                case 'd':
-                    EncriptedMassage[i] = 4;
-                    break;
-                case 'E':
-                case 'e':
-                    EncriptedMassage[i] = 5;
-                    break;
-                //===============================
-                case 'F':
-                case 'f':
-                    EncriptedMassage[i] = 6;
-                    break;
-                case 'G':
-                case 'g':
-                    EncriptedMassage[i] = 7;
-                    break;
-                case 'H':
-                case 'h':
-                    EncriptedMassage[i] = 8;
-                    break;
-                case 'I':
-                case 'i':
-                    EncriptedMassage[i] = 9;
-                    break;
-                case 'J':
-                case 'j':
-                    EncriptedMassage[i] = 10;
-                    break;
-                //===============================
-                case 'K':
-                case 'k':
-                    EncriptedMassage[i] = 11;
-                    break;
-                case 'L':
-                case 'l':
-                    EncriptedMassage[i] = 12;
-                    break;
-                case 'M':
-                case 'm':
-                    EncriptedMassage[i] = 13;
-                    break;
-                case 'N':
-                case 'n':
-                    EncriptedMassage[i] = 14;
-                    break;
-                case 'O':
-                case 'o':
-                    EncriptedMassage[i] = 15;
-                    break;
-                //===============================
-                case 'P':
-                case 'p':
-                    EncriptedMassage[i] = 16;
-                    break;
-                case 'Q':
-                case 'q':
-                    EncriptedMassage[i] = 17;
-                    break;
-                case 'R':
-                case 'r':
-                    EncriptedMassage[i] = 18;
-                    break;
-                case 'S':
-                case 's':
-                    EncriptedMassage[i] = 19;
-                    break;
-                case 'T':
-                case 't':
-                    EncriptedMassage[i] = 20;
-                    break;
-                //===============================
-                case 'U':
-                case 'u':
-                    EncriptedMassage[i] = 21;
-                    break;
-                case 'V':
-                case 'v':
-                    EncriptedMassage[i] = 22;
-                    break;
-                case 'W':
-                case 'w':
-                    EncriptedMassage[i] = 23;
-                    break;
-                case 'X':
-                case 'x':
-                    EncriptedMassage[i] = 24;
-                    break;
-                case 'Y':
-                case 'y':
-                    EncriptedMassage[i] = 25;
-                    break;
-                //===============================
-                case 'Z':
-                case 'z':
-                    EncriptedMassage[i] = 26;
-                    break;
-                case ' ':
-                default:
-                    EncriptedMassage[i] = 0;
-                    break;
-            }
+            
         }
     }
     else{
