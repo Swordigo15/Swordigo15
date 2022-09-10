@@ -185,7 +185,6 @@ int main()
         puts("Write the code here.");
         for(int i = 0; i < codeLenght; i++){
             scanf("%d", &code[i]);
-            
         }
 
         puts("\nPuts space every number.");
