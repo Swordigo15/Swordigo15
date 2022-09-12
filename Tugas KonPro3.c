@@ -69,10 +69,10 @@ int main()
                 isLanjut = true;
                 num1 = answer;
                 break;
-            /*case 'New':
-            case 'new':
+            case 'O':
+            case 'o':
                 isLanjut = false;
-                break;*/
+                break;
             case 'n':
             case 'N':
                 berhenti = true;
