@@ -31,7 +31,7 @@ int main()
             puts("  4. [/] Pembagian");
             puts("  5. [\%] sisa");
             puts("");
-            printf("Panjang angka dibelakang koma : ");
+            printf("Panjang angka dibelakang koma (1 - 6) : ");
             scanf("%d", &floatLenght);
             puts("");
             scanf("%f %s %f", &num1, &opt, &num2);
