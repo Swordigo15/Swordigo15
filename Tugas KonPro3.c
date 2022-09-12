@@ -13,8 +13,9 @@ int main()
     char opt, out;
     
     bool isLanjut = false;
+    bool berhenti = false;
     
-    for(int i; i > -1; i++){
+    while(!berhenti){
         if(isLanjut == true){
             puts("\"Hasil sebelumnya\" [spasi] operasi [spasi] angka kedua, lalu Enter");
             printf("%f ", num1);
@@ -74,7 +75,7 @@ int main()
                 break;*/
             case 'n':
             case 'N':
-                i = -2;
+                berhenti = true;
                 break;
         }
         
