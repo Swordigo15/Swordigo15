@@ -2,7 +2,6 @@
 #include <math.h>
 
 int Luas(int, int, int);
-int kelilingPersegi(int);
 
 int main()
 {
@@ -10,10 +9,19 @@ int main()
     int luas;
     int keliling;
     
-    int pilihan;
+    int pilihanBangun;
     scanf("%d", &pilihan);
     
-    switch(pilihan){
+    int jenis;
+    scanf("%d", &jenis);
+    
+    switch(jenis){
+        case 1:
+        break;
+        case 2:
+        break;
+    }
+    switch(pilihanBangun){
         case 1 :
             printf("Panjang sisi persegi : ");
             scanf("%d", &i);
@@ -54,6 +62,17 @@ int Luas(int j, int panjang, int lebar){
     return 0;
 }
 
-int kelilingPersegi(int sisi){
-    return 4 * sisi;
+int keliling(int j, int panjang, int lebar, int sisi3){
+    switch(j){
+        case 1:
+            return 4 * panjang;
+            break;
+        case 2:
+            return 2 * (panjang + lebar);
+            break;
+        case 3:
+            return panjang + lebar + sisi3;
+            break;
+    }
+    return 0;
 }
