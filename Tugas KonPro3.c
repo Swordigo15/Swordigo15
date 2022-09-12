@@ -96,7 +96,12 @@ int Hitung(int m, int n, char o){
             return m * n;
             break;
         case '/':
-            return m / n;
+            if(n != 0){
+                return m / n;
+            }
+            else{
+                puts("Tidak bisa membagi dengan 0");
+            }
             break;
         case '%':
             return (int)m % n;
