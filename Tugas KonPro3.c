@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-int Hitung(int, int, char);
+float Hitung(float, float, char);
 
 int main()
 {
@@ -52,14 +52,20 @@ int main()
             case 3:
                 printf(" = %.3f\n", answer);
                 break;
-            default:
+            case 4:
                 printf(" = %.4f\n", answer);
+                break;
+            case 5:
+                printf(" = %.5f\n", answer);
+                break;
+            default:
+                printf(" = %f\n", answer);
                 break;
         }
         
-        puts("y untuk melanjutkan operasi.");        
-        puts("o untuk memulai operasi baru.");
-        puts("n untuk berhenti.");
+        puts("\'y\' untuk melanjutkan operasi.");        
+        puts("\'o\' untuk memulai operasi baru.");
+        puts("\'n\' untuk berhenti.");
         printf("Lanjutkan Operasi? y/n/o ");
         scanf("%s", &out);
         
@@ -83,7 +89,7 @@ int main()
     }
 }
 
-int Hitung(int m, int n, char o){
+float Hitung(float m, float n, char o){
     switch(o){
         case '+':
             return m + n;
@@ -104,7 +110,7 @@ int Hitung(int m, int n, char o){
             }
             break;
         case '%':
-            return (int)m % n;
+            return (int)m % (int)n;
             break;
         default :
             printf("Saya tidak mengerti operasi itu.");
