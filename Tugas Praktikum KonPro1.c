@@ -174,6 +174,19 @@ int main()
             
             puts("\nPlease write it!");
             
+            char lanjut;
+            printf("Continue? y/n"); scanf("%s", &lanjut);
+            switch(lanjut){
+                case 'Y':
+                case 'y':
+                    system("clear");
+                    break;
+                case 'N':
+                case 'n':
+                    getchar() == EOF;
+                    break;
+            }
+            
         }
         else if(choice == 2){
             int codeLenght;
