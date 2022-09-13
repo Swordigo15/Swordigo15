@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void Lanjut();
 int R(int, int);
 
 int main()
@@ -174,18 +175,7 @@ int main()
             
             puts("\nPlease write it!");
             
-            char lanjut;
-            printf("Continue? y/n"); scanf("%s", &lanjut);
-            switch(lanjut){
-                case 'Y':
-                case 'y':
-                    system("clear");
-                    break;
-                case 'N':
-                case 'n':
-                    getchar() == EOF;
-                    break;
-            }
+            Lanjut();
             
         }
         else if(choice == 2){
@@ -315,11 +305,29 @@ int main()
                 
                 printf("%s", &massage);
             }
+            
+            Lanjut();
         }
         else{
             puts("I don't know");
+            Lanjut();
         }
     }while(getchar() != EOF);
+}
+
+void Lanjut(){
+    char lanjut;
+    printf("\nContinue? y/n "); scanf("%s", &lanjut);
+    switch(lanjut){
+        case 'Y':
+        case 'y':
+            system("clear");
+            break;
+        case 'N':
+        case 'n':
+            getchar() == EOF;
+            break;
+    }
 }
 
 int R(int min, int max){
