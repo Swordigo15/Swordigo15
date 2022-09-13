@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
+
+int R(int, int);
 
 int main()
 {
@@ -21,10 +24,8 @@ int main()
             unsigned int key[4];
             unsigned int passKey;
             
-            puts("Key must be between 1 and 9");
-            
             for(int i = 0; i < 4; i++){
-                printf("Key%d : ", i + 1); scanf("%d", &key[i]);
+                key[i] = R(0, 9);
                 
                 passKey += key[i];
                 
@@ -169,9 +170,10 @@ int main()
             printf("\nYour password is ");
             
             for(int j = 0; j < 4; j++)
-                printf("%d ", key[j]);
-                
+            printf("%d ", key[j]);
+            
             puts("\nPlease write it!");
+            
         }
         else if(choice == 2){
             int codeLenght;
@@ -305,4 +307,8 @@ int main()
             puts("I don't know");
         }
     }while(getchar() != EOF);
+}
+
+int R(int min, int max){
+   return min + rand() / (RAND_MAX / (max - min + 1) + 1);
 }
