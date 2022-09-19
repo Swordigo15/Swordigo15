@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define SIZE 10 // Maximum size of array
+
 int Random(int min, int max){
     return min + (rand() % max);
 }
