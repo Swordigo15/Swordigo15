@@ -26,5 +26,15 @@ int main()
         else{
             printf("Anda maju %d langkah\n", total);
         }
+        
+        int a;
+    printf("Input : "); scanf("%d", &a);
+    int n[a];
+    
+    printf("%s%8s\n", "Element", "Value");
+    for(size_t i = 0; i < a; i++){
+        n[i] = i * 3;
+        printf("%7zu%8d\n", i, n[i]);
+    }
     }while(i < 1);
 }
