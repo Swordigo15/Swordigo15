@@ -3,26 +3,14 @@ n = int(input())
 if n % 2 == 0:
     n -= 1
 
-print((n + 1) / 2)
+tengah = (n - 1) / 2
 
-for a in range(5):
-    print(a, end = " ")
-print()
-
-for x in range(n):                          #Horizontal
-    if x == 0 or x == n:
-        for y in range(n):
+for x in range(n): 
+    o = abs(x - tengah)
+    for y in range(n):
+        #print("*", end = " ")
+        if y > o and y < (2 * tengah) - o:
+            print(" ", end = " ")
+        else:
             print("*", end = " ")
-    elif x > 0 and x == (n + 1) / 2:
-        for y in range(n):
-            if y == (n + 1) / 2:
-                print(",", end = " ")
-            else:
-                print("*", end = " ")
-    elif x == (n + 1) / 2:
-        for y in range(n):
-            if y == 0 or y == n:
-                print("*", end = " ")
-            else:
-                print(",", end = " ")
     print()
