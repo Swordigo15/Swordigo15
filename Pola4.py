@@ -8,7 +8,6 @@ tengah = (n - 1) / 2
 for x in range(n): 
     o = abs(x - tengah)
     for y in range(n):
-        #print("*", end = " ")
         if y > o and y < (2 * tengah) - o:
             print(" ", end = " ")
         else:
