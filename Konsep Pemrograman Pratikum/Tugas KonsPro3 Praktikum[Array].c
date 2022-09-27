@@ -13,7 +13,7 @@ void DisplayStats(int, int[]);
 
 void GetEXP(int, int);
 void LevelUp();
-void TakeDamage(char[], int[], int[], int);
+void TakeDamage(char[], int[], int);
 void Heal(char[], int[], int);
 
 void EnemyTurn();
@@ -43,8 +43,8 @@ int main()
 {
     srand((unsigned) time(&t));
 
-    int playerStatsNum[4];
-    int enemyStatsNum[4];
+    int playerStatsNum[3];
+    int enemyStatsNum[3];
     int currentExp = (int)(myExp / maxExp);
 
     Welcome();
@@ -60,7 +60,6 @@ int main()
         enemyStatsNum[0] = Random(1, 5);
         enemyStatsNum[1] = Random(1, 2);
         enemyStatsNum[2] = Random(0, 1);
-        enemyStatsNum[3] = Random(1, 2);
 
         char f;
         printf("A %s has appeared.\n\n", eName);
@@ -84,7 +83,7 @@ int main()
 
             switch(q){
                 case 1:
-                    TakeDamage(eName, enemyStatsNum, playerStatsNum, playerStatsNum[2]);
+                    TakeDamage(eName, playerStatsNum, playerStatsNum[2]);
                     EnemyTurn(enemyStatsNum, playerStatsNum);
                     break;
                 case 2:
@@ -103,7 +102,7 @@ int main()
     }
 }
 
-void Welcome(){
+void Welcome(){ //Function untuk memunculkan kata welcome
     //Welcome Sign
     puts("__      __      __  _____   _        ______    ______    ___    ___   _____ ");
     puts("\\ \\    /  \\    / / |  ___| | |      / ____ \\  / ____ \\  |   \\  /   | |  ___|");
@@ -113,13 +112,13 @@ void Welcome(){
     puts("    \\/      \\/     |_____| |_____|  \\______/  \\______/  |_|      |_| |_____|");
 }
 
-void Login(){
+void Login(){//Function untuk memasukkan nama pemain
       puts("");
       puts("(Max 10 character)");
     printf("Enter player Name : "); scanf("%s", playerName);
 }
 
-void ChooseClass(int s[]){
+void ChooseClass(int s[]){//Function
 
     char choice[10];
 
@@ -149,8 +148,9 @@ void DisplayStats(int e, int s[]){
         printf("       %s", titleName);
         printf("\n|Lv. %d             SP : %d |\n", level, skillPoint);
         printf("|-------------------------|\n");
-        printf("|[1]HP  : %d  [3]DEF : %d  |\n", s[0], s[2]);
-        printf("|[2]ATK : %d  [4]DEX : %d  |\n", s[1], s[3]);
+        printf("|[1]HP  : %d         |\n", s[0]);
+        printf("|[2]ATK : %d         |\n", s[1]);
+        printf("|[3]DEF : %d         |\n", s[2]);
         printf("|----|---------------|\n");
         printf("|EXP |%d / %d        |\n", myExp, maxExp);
         printf("|----|---------------|\n");
@@ -162,7 +162,7 @@ void DisplayStats(int e, int s[]){
           puts("Add your SP to your stats.\n");
           puts("(choose by inputing the number ");
           puts("in front of the stats or ");
-          puts("choose [5] to stop adding)");
+          puts("choose [4] to stop adding)");
         printf("\nAdd to "); scanf("%d", &c);
         switch(c){
             case 1:
@@ -181,11 +181,6 @@ void DisplayStats(int e, int s[]){
                 goto addMore;
                 break;
             case 4:
-                s[3]++; skillPoint--;
-                puts("DEX +1");
-                goto addMore;
-                break;
-            case 5:
                 system("cls");
                 break;
         }
@@ -195,7 +190,7 @@ void DisplayStats(int e, int s[]){
 void EnemyTurn(int eStats[], int stats[]){
     int r = Random(0, 10);
     if(r >= 5){
-        TakeDamage(playerName, eStats, stats, eStats[2]);
+        TakeDamage(playerName, stats, eStats[2]);
     }else{
         printf("Do Nothing\n");
     }
@@ -204,20 +199,12 @@ void EnemyTurn(int eStats[], int stats[]){
     printf("Continue? (y) "); scanf("%s", &f);
 }
 
-void TakeDamage(char name[], int stats[], int eStats[], int damage){
-    int j = stats[3] + eStats[3];
-    int r = Random(1, 10);
-    int chance = (stats[3] / j) * 10;
-
-    if(r >= chance){
-        damage -= stats[2];
-        if(damage <= 0)
-            damage = 0;
-        stats[0] -= damage;
-        printf("%s takes %d damage\n", name, damage);
-    }else{
-        printf("It missed\n");
-    }
+void TakeDamage(char name[], int stats[], int damage){
+    damage -= stats[2];
+    if(damage <= 0)
+        damage = 0;
+    stats[0] -= damage;
+    printf("%d %s takes %d damage\n", stats[1], name, damage);
 }
 
 void Heal(char name[], int stats[], int amount){
@@ -241,3 +228,12 @@ void LevelUp(){
 int Random(int min, int max){
     return min + (rand() % max);
 }
+
+//Nama file dan subjek : NIM_Nama panggilan_T03Modifikasi
+/*
+  > EX-OR dibuat dalam DSCH2 lalu screenshot
+    dan taruh di ms word
+  > Modifikasi NAND dan NOR (3 masing-masing) di buat
+    di DSCH2 lalu screenshot dan taruh di ms word
+  kirim ke kuliah.ww@gmail.com
+*/
