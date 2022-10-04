@@ -3,8 +3,8 @@
 int jumlahSiswa;
 int jumlahTes;
 
-void Min(int[jumlahSiswa][jumlahTes]);
-void Max(int[jumlahSiswa][jumlahTes]);
+void Min(int[][jumlahTes]);
+void Max(int[][jumlahTes]);
 
 int main(){
     
@@ -16,36 +16,56 @@ int main(){
     for(int i = 0; i < jumlahTes; i++){
         printf("Tes ke-%d :\n", i + 1);
         for(int j = 0; j < jumlahSiswa; j++){
-            printf("   Nilai siswa ke-%d : ", j + 1); scanf("%d", &nilai[i][j]);
+            printf("   Nilai siswa ke-%d : ", j + 1); scanf("%d", &nilai[j][i]);
         }
     }
+    
+    for(int i = 0; i < jumlahTes; i++){
+        for(int j = 0; j < jumlahSiswa; j++){
+            printf("%d ", nilai[j][i]);
+        }
+        puts("");
+    }
+    
     Min(nilai);
+    puts("");
     Max(nilai);
 }
 
-void Min(int n[jumlahSiswa][jumlahTes]){
-    int x[jumlahTes], min;
-    
+void Min(int n[][jumlahTes]){
+    puts("Minimum");
+    int x[jumlahSiswa], min;
     for(int i = 0; i < jumlahTes; i++){
+        x[i] = n[0][i];
         for(int j = 0; j < jumlahSiswa; j++){
-            if(x[i] > n[i][j]) x[i] = n[i][j];
+            if(x[i] > n[j][i]){
+                x[i] = n[j][i];
+            }
         }
-        printf("nilai terendah tes ke-%d adalah %d\n", i + 1, x[i]);
-        if(x[i + 1] < jumlahTes)
-            if(x[i] > x[i + 1]) min = x[i + 1];
+        printf("Nilai terendah pada tes ke-%d : %d\n", i + 1, x[i]);
+        min = x[i];
+        if(min > x[i]){
+            min = x[i];
+        }
     }
-    printf("nilai terendah adalah %d\n", min);
+    printf("terendah %d\n", min);
 }
 
-void Max(int n[jumlahSiswa][jumlahTes]){
-    int x[jumlahTes], max;
-    
+void Max(int n[][jumlahTes]){
+    puts("Maximum");
+    int x[jumlahSiswa], max;
     for(int i = 0; i < jumlahTes; i++){
+        x[i] = n[0][i];
         for(int j = 0; j < jumlahSiswa; j++){
-            if(x[i] < n[i][j]) x[i] = n[i][j];
+            if(x[i] < n[j][i]){
+                x[i] = n[j][i];
+            }
         }
-        printf("nilai tertinggi tes ke-%d adalah %d\n", i + 1, x[i]);
-        if(x[i] < x[i + 1]) max = x[i + 1];
+        printf("Nilai tertinggi pada tes ke-%d : %d\n", i + 1, x[i]);
+        max = x[i];
+        if(max > x[i]){
+            max = x[i];
+        }
     }
-    printf("nilai tertinggi adalah %d\n", max);
+    printf("tertinggi %d\n", max);
 }
