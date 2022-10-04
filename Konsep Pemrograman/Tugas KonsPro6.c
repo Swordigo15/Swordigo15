@@ -80,6 +80,7 @@ void Rerata(int n[][jumlahTes]){
         for(int j = 0; j < jumlahSiswa; j++){
             x[i] += n[j][i];
         }
+        printf("jumlah nilai tes ke-%d : %d\n", i + 1, x[i]);
         float rt = (float)x[i] / jumlahSiswa;
         printf("Rata - rata tes ke-%d : %f\n", i + 1, rt);
     }
