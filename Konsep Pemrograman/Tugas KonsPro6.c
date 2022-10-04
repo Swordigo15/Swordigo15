@@ -8,9 +8,6 @@ void Max(int[jumlahSiswa][jumlahTes]);
 
 int main(){
     
-    int* jSPtr = &jumlahSiswa;
-    int* jTPtr = &jumlahTes;
-    
     printf("Masukkan jumlah siswa\t: "); scanf("%d", &jumlahSiswa);
     printf("Masukkan jumlah tes\t: "); scanf("%d", &jumlahTes);
     
