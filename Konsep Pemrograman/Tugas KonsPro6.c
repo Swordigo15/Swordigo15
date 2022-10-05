@@ -3,13 +3,12 @@
 int jumlahSiswa;
 int jumlahTes;
 
-int x[jumlahTes], jumlahNilai;
-
 void Min(int[][jumlahTes]);
 void Max(int[][jumlahTes]);
-void Rerata(int[][jumlahTes]);
+int penjumlahan(int n, int[][n]);
 
 int main(){
+    int x[jumlahTes], jumlahNilai;
     
     printf("Masukkan jumlah siswa\t: "); scanf("%d", &jumlahSiswa);
     printf("Masukkan jumlah tes\t: "); scanf("%d", &jumlahTes);
@@ -34,7 +33,10 @@ int main(){
     puts("");
     Max(nilai);
     puts("");
-    Rerata(nilai);
+    for(int i; i < jumlahTes; i++){
+        x[i] = penjumlahan(i, nilai);
+        printf("Jumlah tes ke-%d : %d\n", i + 1, x[i]);
+    }
 }
 
 void Min(int n[][jumlahTes]){
@@ -75,16 +77,12 @@ void Max(int n[][jumlahTes]){
     printf("tertinggi %d\n", max);
 }
 
-void Rerata(int n[][jumlahTes]){
-    
+int penjumlahan(int n, int data[][n]){
+    int y = 0;
     for(int i = 0; i < jumlahTes; i++){
         for(int j = 0; j < jumlahSiswa; j++){
-            printf("%d ", n[j][i]);
-            x[i] += n[j][i];
-            printf("jumlah ke-%d : %d\n", i + 1, x[i]);
+            y += data[j][i];
         }
-        /*printf("jumlah nilai tes ke-%d : %d\n", i + 1, x[i]);
-        float rt = (float)x[i] / jumlahSiswa;
-        printf("Rata - rata tes ke-%d : %f\n", i + 1, rt);*/
-    }
+    }  
+    return y;
 }
