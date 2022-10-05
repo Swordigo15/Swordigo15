@@ -3,6 +3,8 @@
 int jumlahSiswa;
 int jumlahTes;
 
+int x[jumlahTes], jumlahNilai;
+
 void Min(int[][jumlahTes]);
 void Max(int[][jumlahTes]);
 void Rerata(int[][jumlahTes]);
@@ -74,14 +76,15 @@ void Max(int n[][jumlahTes]){
 }
 
 void Rerata(int n[][jumlahTes]){
-    int x[jumlahTes], jumlah;
     
     for(int i = 0; i < jumlahTes; i++){
         for(int j = 0; j < jumlahSiswa; j++){
+            printf("%d ", n[j][i]);
             x[i] += n[j][i];
+            printf("jumlah ke-%d : %d\n", i + 1, x[i]);
         }
-        printf("jumlah nilai tes ke-%d : %d\n", i + 1, x[i]);
+        /*printf("jumlah nilai tes ke-%d : %d\n", i + 1, x[i]);
         float rt = (float)x[i] / jumlahSiswa;
-        printf("Rata - rata tes ke-%d : %f\n", i + 1, rt);
+        printf("Rata - rata tes ke-%d : %f\n", i + 1, rt);*/
     }
 }
