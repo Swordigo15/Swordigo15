@@ -5,11 +5,9 @@ int jumlahTes;
 
 void Min(int[][jumlahTes]);
 void Max(int[][jumlahTes]);
-int penjumlahan(int[][jumlahTes]);
+void RataRata(int[][jumlahTes]);
 
 int main(){
-    int jumlahNilai;
-    float rataRata;
     
     printf("Masukkan jumlah siswa\t: "); scanf("%d", &jumlahSiswa);
     printf("Masukkan jumlah tes\t: "); scanf("%d", &jumlahTes);
@@ -23,24 +21,11 @@ int main(){
         }
     }
     
-    for(int i = 0; i < jumlahTes; i++){
-        for(int j = 0; j < jumlahSiswa; j++){
-            printf("%d ", nilai[j][i]);
-        }
-        puts("");
-    }
-    
     Min(nilai);
     puts("");
     Max(nilai);
     puts("");
-    //x[i] = penjumlahan(nilai);
-    //printf("Jumlah tes ke-%d : %d\n", i + 1, x[i]);
-    jumlahNilai = penjumlahan(nilai);
-    printf("%d\n", jumlahNilai);
-    
-    rataRata = (float)jumlahNilai / jumlahSiswa;
-    printf("Rata-rata keseluruhan adalah %.2f", rataRata);
+    RataRata(nilai);
 }
 
 void Min(int n[][jumlahTes]){
@@ -81,15 +66,20 @@ void Max(int n[][jumlahTes]){
     printf("tertinggi %d\n", max);
 }
 
-int penjumlahan(int data[][jumlahTes]){
-    int x, y;
+void RataRata(int data[][jumlahTes]){
+    int x[jumlahTes], y = 0;
+    float rt = 0;
     for(int i = 0; i < jumlahTes; i++){
+        x[i] = 0;
         for(int j = 0; j < jumlahSiswa; j++){
-            printf("%d + %d\n", y, data[j][i]);
-            y += data[j][i];
+            //printf("%d + %d\n", x[i], data[j][i]);
+            x[i] += data[j][i];
         }
-        x = y;
-        printf("Jumlah nilai tes ke-%d : %d\n", i + 1, x);
+        y += x[i];
+        printf("Jumlah nilai tes ke-%d\t\t: %d\n", i + 1, x[i]);
+        printf("Rata-rata tes ke-%d\t\t: %.2f\n", i + 1, (float)x[i] / jumlahSiswa);
     }
-    return y;
+    rt = (float)y / jumlahSiswa;
+    printf("Jumlah nilai keseluruhan adalah %.2f\n", (float)y);
+    printf("Rata-rata keseluruhan adalah %.2f", rt);
 }
