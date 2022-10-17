@@ -77,9 +77,9 @@ void RataRata(int data[][jumlahTes]){
         }
         y += x[i];
         printf("Jumlah nilai tes ke-%d\t\t: %d\n", i + 1, x[i]);
-        printf("Rata-rata tes ke-%d\t\t: %.2f\n", i + 1, (float)x[i] / jumlahSiswa);
+        printf("Rata-rata tes ke-%d\t\t: %g\n", i + 1, (float)x[i] / jumlahSiswa);
     }
     rt = (float)y / jumlahSiswa;
-    printf("Jumlah nilai keseluruhan adalah %.2f\n", (float)y);
-    printf("Rata-rata keseluruhan adalah %.2f", rt);
+    printf("Jumlah nilai keseluruhan adalah %g\n", (float)y);
+    printf("Rata-rata keseluruhan adalah %g", rt);
 }
