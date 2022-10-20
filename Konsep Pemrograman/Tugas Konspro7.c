@@ -34,6 +34,7 @@ int main()
     printf("Masukkan nilai Akhir "); scanf("%u", &akhir);
     SetIdentitas(&id, n, nim, k, u, uts, uas, akhir);
     
+    printf("Nama n %s\n", n);
     printf("Nama \t\t: %s\nNIM \t\t: %s\nKelas \t\t: %c\nUmur \t\t: %d\nNilai UTS \t: %d\nNilai UAS \t: %d\nNilai Akhir \t: %d\n", 
     id.nama, id.NIM, id.kelas, id.umur, id.nilaiPtr.UTS, id.nilaiPtr.UAS, id.nilaiPtr.NilaiAkhir);
 }
