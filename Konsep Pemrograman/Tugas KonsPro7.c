@@ -2,7 +2,8 @@
 
 typedef struct Student{
     unsigned int number;
-    char name[20];
+    char firstName[10];
+    char lastName[10];
     char NIM[9];
     unsigned int age;
     union Grade{
@@ -61,16 +62,16 @@ void Save(FILE *readPtr){
     }
     else {
         rewind(readPtr);
-        fprintf(writePtr, "%-6s%-21s%-10s%-6s%-6s",
-                "No.", "Name", "NIM", "Age", "Grade");
+        fprintf(writePtr, "%-6s%-11s%-11s%-10s%-6s%-6s",
+                "No.", "First Name", "Last Name", "NIM", "Age", "Grade");
                 
         while(!feof){
-            student sData = {0, "", "", 0, { 0 }};
+            student sData = {0, "", "", "", 0, { 0 }};
             size_t result = fread(&sData, sizeof(student), 1, readPtr);
 
             if (result != 0 && sData.number != 0) {
-                fprintf(writePtr, "%-6d%-21s%-10s%-6d%-6d", 
-                        sData.number, sData.name, sData.NIM, sData.age, 
+                fprintf(writePtr, "%-6d%-11s%-11s%-10s%-6d%-6d", 
+                        sData.number, sData.firstName, sData.lastName, sData.NIM, sData.age, 
                         sData.grade.sisDig + sData.grade.konPro + sData.grade.kalku
                         + sData.grade.fisika + sData.grade.statis);
             }
@@ -86,13 +87,15 @@ void InputData(FILE *fPtr){
     
     fseek(fPtr, (num - 1) * sizeof(student), SEEK_SET);
     
-    student sData = {0, "", "", 0, { 0 }};
+    student sData = {0, "", "", "", 0, { 0 }};
     fread(&sData, sizeof(student), 1, fPtr);
     
     if(sData.number == 0){
         printf("\t\tNIM L0122%.3d has no information.\n", num);
     }else{
-        printf("\t\t%-6d%-21s%-10s%-6d\n", sData.number, sData.name, sData.NIM, sData.age);
+        printf("\t\t%-6d%-11s%-11s%-10s%-6d\n", sData.number, sData.firstName, sData.lastName, sData.NIM, sData.age);
+        
+        
         
         fseek(fPtr, (num - 1) * sizeof(student), SEEK_SET);
 
@@ -106,13 +109,14 @@ void CreateData(FILE *fPtr){
     
     fseek(fPtr, (num - 1) *  sizeof(student), SEEK_SET);
     
-    student sData = {0, "", "", 0, { 0 }};
+    student sData = {0, "", "", "", 0, { 0 }};
     fread(&sData, sizeof(student), 1, fPtr);
     
     if(sData.number != 0){
         printf("\t\tNIM L0122%.3d already has information.\n", num);
     }else{
-        printf("\t\tEnter your name\t"); scanf("%19s", sData.name);
+        printf("\t\tEnter your first name\t"); scanf("%9s", sData.firstName);
+        printf("\t\tEnter your last name\t"); scanf("%9s", sData.lastName);
         printf("\t\tEnter your age\t"); scanf("%5d", &sData.age);
         
         sData.number = num;
