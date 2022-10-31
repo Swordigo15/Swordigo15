@@ -18,7 +18,7 @@ typedef struct Student{
 enum Course { 
     SisDig = 1, KonPro,
     Kalkulus, Fisika,
-    Statistiik
+    Statistik
 };
 
 int ChooseMenu();
@@ -94,8 +94,36 @@ void InputData(FILE *fPtr){
         printf("\t\tNIM L0122%.3d has no information.\n", num);
     }else{
         printf("\t\t%-6d%-11s%-11s%-10s%-6d\n", sData.number, sData.firstName, sData.lastName, sData.NIM, sData.age);
+        printf("\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s", 
+                "Input grade of : ",
+                "1. Digital System",
+                "2. Programming",
+                "3. Calculus",
+                "4. Physics",
+                "5. Statistc",
+                "Your choice ");
         
-        
+        int c;
+        unsigned int g;
+        scanf("%d", &c);
+        printf("\t\tEnter your grade "); scanf("%u", &g);
+        switch(c){
+            case SisDig:
+                sData.grade.sisDig = g;
+            break;
+            case KonPro:
+                sData.grade.konPro = g;
+            break;
+            case Kalkulus:
+                sData.grade.kalku = g;
+            break;
+            case Fisika:
+                sData.grade.fisika = g;
+            break;
+            case Statistik:
+                sData.grade.statis = g;
+            break;
+        }
         
         fseek(fPtr, (num - 1) * sizeof(student), SEEK_SET);
 
@@ -115,9 +143,9 @@ void CreateData(FILE *fPtr){
     if(sData.number != 0){
         printf("\t\tNIM L0122%.3d already has information.\n", num);
     }else{
-        printf("\t\tEnter your first name\t"); scanf("%9s", sData.firstName);
-        printf("\t\tEnter your last name\t"); scanf("%9s", sData.lastName);
-        printf("\t\tEnter your age\t"); scanf("%5d", &sData.age);
+        printf("\t\tEnter your first name\t"); scanf("%s", sData.firstName);
+        printf("\t\tEnter your last name\t"); scanf("%s", sData.lastName);
+        printf("\t\tEnter your age\t"); scanf("%u", &sData.age);
         
         sData.number = num;
         sprintf(sData.NIM, "L0122%.3d", num);
