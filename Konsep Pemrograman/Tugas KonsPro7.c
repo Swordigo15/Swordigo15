@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-typedef struct Student{
-    unsigned int number;
-    char firstName[10];
+typedef struct Student{ 
+    unsigned int number; 
+    char firstName[10]; 
     char lastName[10];
     char NIM[9];
     unsigned int age;
@@ -154,14 +154,18 @@ void CreateData(FILE *fPtr){
 
         fwrite(&sData, sizeof(student), 1, fPtr);
     }
+}
+
+void DisplayStudent(FILE *readPtr){
     
 }
 
 int ChooseMenu(){
-    printf("\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s", 
+    printf("\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s", 
             "----------MENU----------",
             "1. Insert Grade",
             "2. Create New",
+            "3. Display Student",
             "5. End Program",
             "Your choice ");
     
