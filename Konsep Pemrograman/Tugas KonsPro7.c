@@ -122,6 +122,8 @@ void UpdateData(FILE *fPtr){
         switch(c){
             case SisDig:
                 sData.grade.sisDig = g;
+                printf("|Your Digital System grade is "); printBinary((unsigned)g, 8);
+                puts("");
             break;
             case KonPro:
                 sData.grade.konPro = g;
