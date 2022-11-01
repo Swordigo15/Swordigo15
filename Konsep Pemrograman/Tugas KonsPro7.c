@@ -122,20 +122,28 @@ void UpdateData(FILE *fPtr){
         switch(c){
             case SisDig:
                 sData.grade.sisDig = g;
-                printf("|Your Digital System grade is "); printBinary((unsigned)g, 8);
+                printf("|Your Digital System grade is "); printBinary((unsigned)g, 6);
                 puts("");
             break;
             case KonPro:
                 sData.grade.konPro = g;
+                printf("|Your Programming grade is "); printBinary((unsigned)g, 6);
+                puts("");
             break;
             case Kalkulus:
                 sData.grade.kalku = g;
+                printf("|Your Calculus grade is "); printBinary((unsigned)g, 6);
+                puts("");
             break;
             case Fisika:
                 sData.grade.fisika = g;
+                printf("|Your Physics grade is "); printBinary((unsigned)g, 6);
+                puts("");
             break;
             case Statistik:
                 sData.grade.statis = g;
+                printf("|Your Statistic grade is "); printBinary((unsigned)g, 6);
+                puts("");
             break;
         }
 
