@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-typedef struct Student{
+typedef struct {
     unsigned int number;
     char firstName[10];
     char lastName[10];
@@ -23,9 +23,11 @@ enum Course {
 
 int ChooseMenu();
 void Save(FILE*);
-void InputData(FILE*);
+void UpdateData(FILE*);
 void CreateData(FILE*);
 void DisplayData(FILE*);
+void DeleteData(FILE*);
+void printBinary(unsigned int, int);
 
 int main()
 {
@@ -39,7 +41,7 @@ int main()
         while ((choice = ChooseMenu()) != 5) {
             switch(choice){
                 case 1:
-                    InputData(datPtr);
+                    UpdateData(datPtr);
                     Save(datPtr);
                 break;
                 case 2:
@@ -48,6 +50,10 @@ int main()
                 break;
                 case 3:
                     DisplayData(datPtr);
+                break;
+                case 4:
+                    DeleteData(datPtr);
+                    Save(datPtr);
                 break;
                 default:
                     puts("Unrecognizable input");
@@ -81,14 +87,14 @@ void Save(FILE *readPtr){
         }
         fclose(writePtr);
     }
-    puts("\t\tFile saved");
+    puts("\t\t|File saved");
 }
 
-void InputData(FILE *fPtr){
+void UpdateData(FILE *fPtr){
     int num = 0;
     while(num <= 0 || num > 159){
-        printf("\t\tEnter your last three number of NIM: "); scanf("%d", &num);
-        if(num > 159) puts("max NIM is 159");
+        printf("\t\t|Enter your last three number of NIM: "); scanf("%d", &num);
+        if(num > 159) puts("\t\t|max NIM is 159");
     }
 
     fseek(fPtr, (num - 1) * sizeof(student), SEEK_SET);
@@ -97,22 +103,22 @@ void InputData(FILE *fPtr){
     fread(&sData, sizeof(student), 1, fPtr);
 
     if(sData.number == 0){
-        printf("\t\tNIM L0122%.3d has no information.\n", num);
+        printf("\t\t|NIM L0122%.3d has no information.\n", num);
     }else{
-        printf("\t\t%-6d%-11s%-11s%-10s%-6d\n", sData.number, sData.firstName, sData.lastName, sData.NIM, sData.age);
+        printf("\t\t|%-6d%-11s%-11s%-10s%-6d\n", sData.number, sData.firstName, sData.lastName, sData.NIM, sData.age);
         printf("\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s",
-                "Input grade of : ",
-                "1. Digital System",
-                "2. Programming",
-                "3. Calculus",
-                "4. Physics",
-                "5. Statistc",
-                "Your choice ");
+                "|Input grade of : ",
+                "|\t1. Digital System",
+                "|\t2. Programming",
+                "|\t3. Calculus",
+                "|\t4. Physics",
+                "|\t5. Statistc",
+                "|\tYour choice ");
 
         int c;
         unsigned int g;
         scanf("%d", &c);
-        printf("\t\tEnter your grade "); scanf("%u", &g);
+        printf("\t\t|Enter your grade "); scanf("%u", &g);
         switch(c){
             case SisDig:
                 sData.grade.sisDig = g;
@@ -140,8 +146,8 @@ void InputData(FILE *fPtr){
 void CreateData(FILE *fPtr){
     int num = 0;
     while(num <= 0 || num > 159){
-        printf("\t\tEnter your last three number of NIM: "); scanf("%d", &num);
-        if(num > 159) puts("max NIM is 159");
+        printf("\t\t|Enter your last three number of NIM: "); scanf("%d", &num);
+        if(num > 159) puts("\t\t|max NIM is 159");
     }
 
     fseek(fPtr, (num - 1) *  sizeof(student), SEEK_SET);
@@ -150,11 +156,11 @@ void CreateData(FILE *fPtr){
     fread(&sData, sizeof(student), 1, fPtr);
 
     if(sData.number != 0){
-        printf("\t\tNIM L0122%.3d already has information.\n", num);
+        printf("\t\t|NIM L0122%.3d already has information.\n", num);
     }else{
-        printf("\t\tEnter your first name\t"); scanf("%s", sData.firstName);
-        printf("\t\tEnter your last name\t"); scanf("%s", sData.lastName);
-        printf("\t\tEnter your age\t"); scanf("%u", &sData.age);
+        printf("\t\t|Enter your first name\t"); scanf("%s", sData.firstName);
+        printf("\t\t|Enter your last name\t"); scanf("%s", sData.lastName);
+        printf("\t\t|Enter your age\t"); scanf("%u", &sData.age);
 
         sData.number = num;
         sprintf(sData.NIM, "L0122%.3d", num);
@@ -165,9 +171,33 @@ void CreateData(FILE *fPtr){
     }
 }
 
+void DeleteData(FILE *fPtr){
+    int num = 0;
+    while(num <= 0 || num > 159){
+        printf("\t\t|Enter your last three number of NIM: "); scanf("%d", &num);
+        if(num > 159) puts("max NIM is 159");
+    }
+    
+    fseek(fPtr, (num - 1) * sizeof(student), SEEK_SET);
+    
+    student sData = {0, "", "", "", 0, { 0 }};
+    fread(&sData, sizeof(student), 1, fPtr);
+    
+    if(sData.number == 0){
+        printf("\t\tNIM L0122%.3d has no information.\n", num);
+    }else{
+        fseek(fPtr, (num - 1) * sizeof(student), SEEK_SET);
+        
+        student blankData = {0, "", "", "", 0, { 0 }};
+        
+        fwrite(&blankData, sizeof(student), 1, fPtr);
+        
+    }
+}
+
 void DisplayData(FILE *readPtr){
     printf("\t\t%-6s%-11s%-11s%-10s%-6s\n",
-            "No.", "First Name", "Last Name", "NIM", "Age");
+            "|No.", "First Name", "Last Name", "NIM", "Age");
     
     for(int i = 1; i <= 159; i++){
         fseek(readPtr, (i - 1) * sizeof(student), SEEK_SET);
@@ -176,21 +206,33 @@ void DisplayData(FILE *readPtr){
         fread(&sData, sizeof(student), 1, readPtr);
         
         if(sData.number != 0){
-            printf("\t\t%-6d%-11s%-11s%-10s%-6d\n", 
+            printf("\t\t|%-6d%-11s%-11s%-10s%-6d\n", 
                     sData.number, sData.firstName, 
                     sData.lastName, sData.NIM, sData.age);
         }
     }
 }
 
+void printBinary(unsigned int n, int bitLength) {
+    for (unsigned int i = 1 << (bitLength - 1); i > 0; i /= 2) {
+        if ((n & i) != 0) {
+            printf("1");
+        }
+        else {
+            printf("0");
+        }
+    }
+}
+
 int ChooseMenu(){
-    printf("\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s",
+    printf("\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s\n\t\t%s",
             "---------------------MENU---------------------",
-            "1. Insert Grade",
-            "2. Create New",
-            "3. Display Student",
-            "5. End Program",
-            "Your choice ");
+            "|1. Insert Grade",
+            "|2. Create New",
+            "|3. Display Student",
+            "|4. Delete Student Data",
+            "|5. End Program",
+            "|Your choice ");
 
     int c;
     scanf("%d", &c);
