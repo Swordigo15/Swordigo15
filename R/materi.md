@@ -60,4 +60,19 @@ TRUE <- "John"
   - character (string) --> "Hello", 'World', '34', "9.3"
   - logical (boolean) --> True and False
 
-Use class() function to check the type of varable
+Use class() function to check the type of varable.
+
+as.numeric() convert variable to numeric.
+
+as.integer() convert variable to integer.
+
+as.complex() convert variable to complex.
+
+> Math
+  - Operator
+    | + | Addition
+    | - | 
+    | * | Multiplication
+    | / | Division
+    | % | Modulus
+  - Function
