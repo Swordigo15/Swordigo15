@@ -15,6 +15,9 @@ typedef struct{
     int hp;
     int atk;
     int armor;
+    int lv;
+    int currentEXP;
+    int EXP;
     Equipment eq[3];
 }Stats;
 
@@ -40,6 +43,7 @@ int main () {
             Save(PlayerSaveFile, player);   
         }else{
             PrintStats(player);
+            Save(PlayerSaveFile, player);  
         }
     }
     fclose(PlayerSaveFile);
@@ -59,18 +63,29 @@ void Start(Stats *p){
     p->hp           = 5;
     p->atk          = 2;
     p->armor        = 0;
+    p->lv           = 1;
+    p->currentEXP   = 0;
+    p->EXP          = 10;
     for(int i = 0; i < Armor; i++){
         p->atk  += p->eq[i].atk;
         p->armor  += p->eq[i].def;
     }
 }
 
+void LevelUp(Stats *player){
+    player->lv++;
+    player->currentEXP -= player->EXP;
+    player->EXP += 5 * player->lv;
+}
+
 void PrintStats(Stats stat){
-    printf("%s\n|Name\t: %-15s|\n|HP\t: %-15d|\n|ATK\t: %-15d|\n|DEF\t: %-15d|\n|EQ \t: %-15s|\n|\t- %-15s|\n|\t- %-15s|\n|\t- %-15s|\n%s", 
-                "+------------------------+",
-                stat.name, stat.hp, stat.atk, stat.armor,
+    printf("%s\n|Name\t: %-15sLv.%-4d|\n|HP\t: %-22d|\n|ATK\t: %-22d|\n|DEF\t: %-22d|\n|EQ \t: %-22s|\n|\t- %-22s|\n|\t- %-22s|\n|\t- %-22s|\n%s", 
+                "+-------------------------------+",
+                stat.name, stat.lv, stat.hp, stat.atk, stat.armor,
                 "", stat.eq[Weapon].name, stat.eq[Shield].name, stat.eq[Armor].name,
-                "+------------------------+"); 
+                "+-------------------------------+"); 
+    printf("\n%-4d/ %-3d\n", stat.currentEXP, stat.EXP);
+    for(int i = 0; i < (stat.currentEXP * 30) / stat.EXP; i++) printf("#");
 }
 
 void Save(FILE *file, Stats p){
