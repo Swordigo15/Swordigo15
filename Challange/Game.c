@@ -4,6 +4,11 @@
 enum EquipmentType { Weapon, Shield, Armor };
 
 typedef struct{
+    char fileName[10];
+    char directory[100];
+}fileSave[3];
+
+typedef struct{
     char name[12];
     int atk;
     int def;
@@ -21,12 +26,13 @@ typedef struct{
     Equipment eq[3];
 }Stats;
 
+void ChooseSaveData();
 void Start(Stats*);
 void PrintStats(Stats);
 
 void Save (FILE*, Stats);
 
-int main () {
+int main(){
     FILE *PlayerSaveFile;
     
     Stats player;
@@ -47,6 +53,31 @@ int main () {
         }
     }
     fclose(PlayerSaveFile);
+}
+
+void ChooseSaveData(){
+    int c;
+    for(int i = 0; i < 3; i++){
+        printf("%d. ", i - 1); 
+        if(!strcmp(fileSave[i].fileName, "")){
+            printf("New Save Data")
+        }else{
+            printf("%s %s\n", fileSave[i].fileName, fileSave[i].fileName);  
+        }        
+    }
+    printf(">"); scanf("%d", &c);
+    
+    CheckFile(c);
+}
+
+void CheckFile(int n){
+    char nameTemp[10];
+    if(!strcmp(fileSave[n].fileName, "")){
+        printf("Name your save file "); scanf("%s", nameTemp);
+        strcpy(fileSave[i].fileName, nameTemp);
+    }else{
+        
+    }
 }
 
 void Start(Stats *p){
