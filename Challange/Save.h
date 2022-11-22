@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
-//Still in test prossecess
 #include <string.h>
 
 typedef struct{
     char name[10];
-    char date[10];
+    char date[11];
     char time[10];
 }SaveData;
 
-void CreateNewSaveData(FILE*, char*, SaveData);
-void LoadSaveData(FILE*, SaveData)
+int DisplaySaveDataList(FILE*, SaveData*);
+void WriteSaveData(FILE*, SaveData, int);
+void CreateNewSaveData(FILE*, char*, SaveData*);
+void LoadSaveData(FILE*, SaveData);
 
 int main()
 {
@@ -20,13 +21,38 @@ int main()
     
     char fileName[10];
     
-    if((fileList = fopen("List", "rb+")) == NULL){
+    if((fileList = fopen("List.dat", "rb+")) == NULL){
         printf("File cannot be found.");
     }else{
-        int c;
-        scanf("%d", &c);
-        CreateNewSaveData(saveFile, fileName, SaveData[c]);
+        int c = DisplaySaveDataList(fileList, saveData);
+        if(strcmp(saveData[c].name, "")){
+            LoadSaveData(saveFile, saveData[c]);
+        }else{
+            CreateNewSaveData(saveFile, fileName, &saveData[c]);
+            WriteSaveData(fileList, saveData[c], c);   
+        }
     }
+}
+
+int DisplaySaveDataList(FILE *file, SaveData *sd){
+    for(int i = 0; i < 3; ++i){
+        fseek(file, i * sizeof(SaveData), SEEK_SET);
+        fread(&sd[i], sizeof(SaveData), 1, file);
+        
+        printf("%d. ", i + 1);
+        if(!strcmp(sd[i].name, "")){
+            printf("New Save Data\n"); 
+        }else{
+            printf("%s %s %s\n", sd[i].name, sd[i].date, sd[i].time);
+        }
+    }
+    int c;
+    scanf("%d", &c); return c - 1;
+}
+
+void WriteSaveData(FILE *file, SaveData sd, int i){
+    fseek(file, i * sizeof(SaveData), SEEK_SET);
+    fwrite(&sd, sizeof(SaveData), 1, file);
 }
 
 void CreateNewSaveData(FILE *sf, char *name, SaveData *data){
@@ -39,4 +65,5 @@ void CreateNewSaveData(FILE *sf, char *name, SaveData *data){
 
 void LoadSaveData(FILE *sf, SaveData data){
     sf = fopen(data.name, "rb+");
+    printf("%s loaded", data.name);
 }
