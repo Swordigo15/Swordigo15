@@ -10,6 +10,7 @@ typedef struct{
 }SaveData;
 
 void CreateNewSaveData(FILE*, char*, SaveData);
+void LoadSaveData(FILE*, SaveData)
 
 int main()
 {
@@ -34,4 +35,8 @@ void CreateNewSaveData(FILE *sf, char *name, SaveData *data){
     strcpy(data->name, name);
     strcpy(data->date, __DATE__);
     strcpy(data->time, __TIME__);
+}
+
+void LoadSaveData(FILE *sf, SaveData data){
+    sf = fopen(data.name, "rb+");
 }
