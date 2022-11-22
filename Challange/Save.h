@@ -10,7 +10,7 @@ typedef struct{
 
 int DisplaySaveDataList(FILE*, SaveData*);
 void WriteSaveData(FILE*, SaveData, int);
-void CreateNewSaveData(FILE*, char*, SaveData*);
+void CreateNewSaveData(FILE*, SaveData*);
 void LoadSaveData(FILE*, SaveData);
 
 int main()
@@ -19,8 +19,6 @@ int main()
     FILE *saveFile;
     SaveData saveData[3];
     
-    char fileName[10];
-    
     if((fileList = fopen("List.dat", "rb+")) == NULL){
         printf("File cannot be found.");
     }else{
@@ -28,7 +26,7 @@ int main()
         if(strcmp(saveData[c].name, "")){
             LoadSaveData(saveFile, saveData[c]);
         }else{
-            CreateNewSaveData(saveFile, fileName, &saveData[c]);
+            CreateNewSaveData(saveFile, &saveData[c]);
             WriteSaveData(fileList, saveData[c], c);   
         }
     }
@@ -55,7 +53,8 @@ void WriteSaveData(FILE *file, SaveData sd, int i){
     fwrite(&sd, sizeof(SaveData), 1, file);
 }
 
-void CreateNewSaveData(FILE *sf, char *name, SaveData *data){
+void CreateNewSaveData(FILE *sf, SaveData *data){
+    char fileName[10];
     printf("Enter file name : "); scanf("%s", name);
     sf = fopen(name, "wb+");
     strcpy(data->name, name);
