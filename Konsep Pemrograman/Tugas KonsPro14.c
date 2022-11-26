@@ -19,10 +19,14 @@ SIG signals[6] = {
 int  Menu();
 void SHMenu();
 void Signaling();
+void Save(FILE*);
+void Load(FILE*);
+void Display();
+void Update(SIG*);
 
 int main()
 {
-    FILE *studentList = NULL;
+    FILE *signalList = NULL;
     
     signal(SIGABRT, Signaling);
     signal(SIGFPE , Signaling);
@@ -31,14 +35,26 @@ int main()
     signal(SIGSEGV, Signaling);
     signal(SIGTERM, Signaling);
     
-    if((studentList = fopen("List", "rb+")) == NULL){
+    if((signalList = fopen("List", "rb+")) == NULL){
         printf("File cannot be found.");
     }else{
         int c;
         menu:
         switch(c = Menu()){
             case SIGNAL:
-                SHMENU();
+                SHMenu();
+            break;
+            case SAVE:
+                Save(signalList);
+            break;
+            case LOAD:
+                Load(signalList);
+            break;
+            case DISPLAY:
+                Display();
+            break;
+            case UPDATE:
+                Update(signals);
             break;
         }
         goto menu;
@@ -94,25 +110,25 @@ void SHMenu(){
 }
 
 void Signaling(int n){
-    printf("This is signal %d\n%s", n, "This signal is called when ");
+    printf("This is signal %d\n%s", n, "This signal is ");
     switch(n){
         case 2:
-            printf("");
+            printf("called when there is abnormal termination of the program.");
         break;
         case 4:
-            
+            printf("called when there is an erroneous arithmetic operation.");
         break;
         case 6:
-            
+            printf("called when there is detection of illegal instruction");
         break;
         case 8:
-            
+            printf("a receipt of an interactive attention signal");
         break;
         case 11:
-            
+            printf("called when there is an attempt to access to memory that is not allocated to a program");
         break;
         case 15:
-            
+            printf("called when there is a termination request sent to a program");
         break;
     }
 }
@@ -128,13 +144,14 @@ void Load(FILE *file){
 }
 
 void Display(){
-    for(int i = 0; i < 6; i++) printf("%d. %s called %d times", i+1, signals[i].name, signals[i].counter);
+    for(int i = 0; i < 6; i++) printf("%d. %s called %d times\n", i+1, signals[i].name, signals[i].counter);
 }
 
 void Update(SIG *s){
     int n; char nTemp[8];
     Display();
-    printf("Choose Signal you want to update    : "); scanf("%d",   &n);
-    printf("Write new signal name (max. 7 char) : "); scanf("%.8s", nTemp);
-    strcpy()
+    printf("\nChoose Signal you want to update    : "); scanf("%d",  &n);
+    printf("Write new signal name (max. 7 char) : "); scanf("%s", nTemp);
+    strcpy(s[n]->name, nTemp);
+    s[n]->counter = 0;
 }
