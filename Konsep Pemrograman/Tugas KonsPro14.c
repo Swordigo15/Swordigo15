@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <signal.h>
 
@@ -56,6 +57,9 @@ int main()
             case UPDATE:
                 Update(signals);
             break;
+            default:
+                exit(1);
+            break;
         }
         goto menu;
     }
@@ -63,13 +67,14 @@ int main()
 
 int Menu(){
     int n;
-    printf("%s\n%s\n%s\n%s\n%s\n%s\n%s", 
+    printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s", 
             "-----MENU-----",
             "1. Signal",
             "2. Save", 
             "3. Load", 
             "4. Display", 
             "5. Update", 
+            "6. Exit"
             ">> "); scanf("%d", &n);
     return n;
 }
