@@ -63,11 +63,11 @@ int main()
 
 int Menu(){
     int n;
-    printf("%s\n%s\n%s\n%s\n%s\n%s", 
+    printf("%s\n%s\n%s\n%s\n%s\n%s\n%s", 
             "-----MENU-----",
-            "1. Signal"
+            "1. Signal",
             "2. Save", 
-            "3. LOAD", 
+            "3. Load", 
             "4. Display", 
             "5. Update", 
             ">> "); scanf("%d", &n);
@@ -76,7 +76,7 @@ int Menu(){
 
 void SHMenu(){
     int n;
-    printf("Call : %s\n%s\n%s\n%s\n%s\n%s\n%s", 
+    printf("Call : \n%s\n%s\n%s\n%s\n%s\n%s\n%s", 
             "1. SIGABRT", 
             "2. SIGFPE", 
             "3. SIGILL",
@@ -113,22 +113,28 @@ void Signaling(int n){
     printf("This is signal %d\n%s", n, "This signal is ");
     switch(n){
         case 2:
-            printf("called when there is abnormal termination of the program.");
+            puts("called when there is abnormal termination of the program.");
+            signals[3].counter++;
         break;
         case 4:
-            printf("called when there is an erroneous arithmetic operation.");
+            puts("called when there is an erroneous arithmetic operation.");
+            signals[2].counter++;
         break;
         case 6:
-            printf("called when there is detection of illegal instruction");
+            puts("called when there is detection of illegal instruction.");
+            signals[0].counter++;
         break;
         case 8:
-            printf("a receipt of an interactive attention signal");
+            puts("a receipt of an interactive attention signal.");
+            signals[1].counter++;
         break;
         case 11:
-            printf("called when there is an attempt to access to memory that is not allocated to a program");
+            puts("called when there is an attempt to access to memory that is not allocated to a program.");
+            signals[4].counter++;
         break;
         case 15:
-            printf("called when there is a termination request sent to a program");
+            puts("called when there is a termination request sent to a program.");
+            signals[5].counter++;
         break;
     }
 }
@@ -152,6 +158,6 @@ void Update(SIG *s){
     Display();
     printf("\nChoose Signal you want to update    : "); scanf("%d",  &n);
     printf("Write new signal name (max. 7 char) : "); scanf("%s", nTemp);
-    strcpy(s[n]->name, nTemp);
-    s[n]->counter = 0;
+    strcpy(s[n-1].name, nTemp);
+    s[n-1].counter = 0;
 }
