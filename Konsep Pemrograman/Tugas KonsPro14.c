@@ -74,7 +74,7 @@ int Menu(){
             "3. Load", 
             "4. Display", 
             "5. Update", 
-            "6. Exit"
+            "6. Exit",
             ">> "); scanf("%d", &n);
     return n;
 }
@@ -145,13 +145,13 @@ void Signaling(int n){
 }
 
 void Save(FILE *file){
-    rewind();
+    rewind(file);
     for(int i = 0; i < 6; i++) fwrite(&signals[i], sizeof(SIG), 1, file);
     puts("Data has been saved.");
 }
 
 void Load(FILE *file){
-    rewind();
+    rewind(file);
     for(int i = 0; i < 6; i++) fread(&signals[i], sizeof(SIG), 1, file);    
     puts("Data has been loaded.");
 }
