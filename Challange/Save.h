@@ -4,7 +4,7 @@
 
 typedef struct{
     char name[10];
-    char date[11];
+    char date[12];
     char time[10];
 }SaveData;
 
@@ -55,9 +55,9 @@ void WriteSaveData(FILE *file, SaveData sd, int i){
 
 void CreateNewSaveData(FILE *sf, SaveData *data){
     char fileName[10];
-    printf("Enter file name : "); scanf("%s", name);
-    sf = fopen(name, "wb+");
-    strcpy(data->name, name);
+    printf("Enter file name : "); scanf("%s", fileName);
+    sf = fopen(fileName, "wb+");
+    strcpy(data->name, fileName);
     strcpy(data->date, __DATE__);
     strcpy(data->time, __TIME__);
 }
