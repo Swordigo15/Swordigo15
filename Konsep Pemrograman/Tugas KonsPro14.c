@@ -1,45 +1,119 @@
 #include <stdio.h>
 #include <signal.h>
 
-void SignalFunc(int);
+enum SIGS{ ABRT   = 1, FPE, ILL, INT, SEGV , TERM  };
+enum MENU{ SIGNAL = 1, SAVE, READ, DISPLAY, UPDATE };
+
+typedef struct{
+    char name[8];
+    int counter;
+}SIG;
+
+SIG signals[6] = {
+    {"SIGABRT", 0}, {"SIGFPE",  0},
+    {"SIGILL",  0}, {"SIGINT",  0},
+    {"SIGSEGV", 0}, {"SIGTERM", 0},
+};
+
+int  Menu();
+void SHMenu();
+void Signaling();
 
 int main()
 {
-    signal(SIGABRT, SignalFunc);
-    signal(SIGFPE, SignalFunc);
-    signal(SIGILL, SignalFunc);
-    signal(SIGINT, SignalFunc);
-    signal(SIGSEGV, SignalFunc);
-    signal(SIGTERM, SignalFunc);
+    FILE *studentList = NULL;
     
-    int c;
+    signal(SIGABRT, Signaling);
+    signal(SIGFPE , Signaling);
+    signal(SIGILL , Signaling);
+    signal(SIGINT , Signaling);
+    signal(SIGSEGV, Signaling);
+    signal(SIGTERM, Signaling);
     
-    Again:
-    printf("Input : "); scanf("%d", &c);
+    if((studentList = fopen("List", "rb+")) == NULL){
+        printf("File cannot be found.");
+    }else{
+        int c;
+        menu:
+        switch(c = Menu()){
+            case SIGNAL:
+                SHMENU();
+            break;
+        }
+        goto menu;
+    }
+}
 
-    switch(c){
-        case 1:
+int Menu(){
+    int n;
+    printf("%s\n%s\n%s\n%s\n%s\n%s", 
+            "-----MENU-----",
+            "1. Signal"
+            "2. Save", 
+            "3. Read", 
+            "4. Display", 
+            "5. Update", 
+            ">> "); scanf("%d", &n);
+    return n;
+}
+
+void SHMenu(){
+    int n;
+    printf("Call : %s\n%s\n%s\n%s\n%s\n%s\n%s", 
+            "1. SIGABRT", 
+            "2. SIGFPE", 
+            "3. SIGILL",
+            "4. SIGINT",
+            "5. SIGSEGV",
+            "6. SIGTERM",
+            ">> ");
+    scanf("%d", &n);
+    switch(n){
+        case ABRT:
             raise(SIGABRT);
         break;
-        case 2:
+        case FPE:
             raise(SIGFPE);
         break;
-        case 3:
+        case ILL:
             raise(SIGILL);
         break;
-        case 4:
+        case INT:
             raise(SIGINT);
         break;
-        case 5:
+        case SEGV:
             raise(SIGSEGV);
         break;
-        case 6:
+        case TERM:
             raise(SIGTERM);
         break;
     }
-    goto Again;
 }
 
-void SignalFunc(int n){
-    printf("This is ( %d ) signal\n", n);
+void Signaling(int n){
+    printf("This is signal %d\n%s", n, "This signal is called when ");
+    switch(n){
+        case 2:
+            printf("");
+        break;
+        case 4:
+            
+        break;
+        case 6:
+            
+        break;
+        case 8:
+            
+        break;
+        case 11:
+            
+        break;
+        case 15:
+            
+        break;
+    }
+}
+
+void Save(){
+    
 }
