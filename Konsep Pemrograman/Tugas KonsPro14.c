@@ -112,21 +112,21 @@ void SHMenu(){
 void Signaling(int n){
     printf("This is signal %d\n%s", n, "This signal is ");
     switch(n){
-        case 2:
-            puts("called when there is abnormal termination of the program.");
-            signals[3].counter++;
-        break;
-        case 4:
-            puts("called when there is an erroneous arithmetic operation.");
-            signals[2].counter++;
-        break;
         case 6:
-            puts("called when there is detection of illegal instruction.");
+            puts("called when there is abnormal termination of the program.");
             signals[0].counter++;
         break;
         case 8:
-            puts("a receipt of an interactive attention signal.");
+            puts("called when there is an erroneous arithmetic operation.");
             signals[1].counter++;
+        break;
+        case 4:
+            puts("called when there is detection of illegal instruction.");
+            signals[2].counter++;
+        break;
+        case 2:
+            puts("a receipt of an interactive attention signal.");
+            signals[3].counter++;
         break;
         case 11:
             puts("called when there is an attempt to access to memory that is not allocated to a program.");
@@ -140,7 +140,7 @@ void Signaling(int n){
 }
 
 void Save(FILE *file){
-    for(int i = 0; i < 6; i++) fwrite(&signals[i], sizeof(SIG), 1, file);    
+    for(int i = 0; i < 6; i++) fwrite(&signals[i], sizeof(SIG), 1, file);
     puts("Data has been saved.");
 }
 
