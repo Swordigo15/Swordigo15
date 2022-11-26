@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <string.h>
 #include <signal.h>
 
 enum SIGS{ ABRT   = 1, FPE, ILL, INT, SEGV , TERM  };
-enum MENU{ SIGNAL = 1, SAVE, READ, DISPLAY, UPDATE };
+enum MENU{ SIGNAL = 1, SAVE, LOAD, DISPLAY, UPDATE };
 
 typedef struct{
     char name[8];
@@ -50,7 +51,7 @@ int Menu(){
             "-----MENU-----",
             "1. Signal"
             "2. Save", 
-            "3. Read", 
+            "3. LOAD", 
             "4. Display", 
             "5. Update", 
             ">> "); scanf("%d", &n);
@@ -87,6 +88,8 @@ void SHMenu(){
         case TERM:
             raise(SIGTERM);
         break;
+        default:
+        break;
     }
 }
 
@@ -114,6 +117,24 @@ void Signaling(int n){
     }
 }
 
-void Save(){
-    
+void Save(FILE *file){
+    for(int i = 0; i < 6; i++) fwrite(&signals[i], sizeof(SIG), 1, file);    
+    puts("Data has been saved.");
+}
+
+void Load(FILE *file){
+    for(int i = 0; i < 6; i++) fread(&signals[i], sizeof(SIG), 1, file);    
+    puts("Data has been loaded.");
+}
+
+void Display(){
+    for(int i = 0; i < 6; i++) printf("%d. %s called %d times", i+1, signals[i].name, signals[i].counter);
+}
+
+void Update(SIG *s){
+    int n; char nTemp[8];
+    Display();
+    printf("Choose Signal you want to update    : "); scanf("%d",   &n);
+    printf("Write new signal name (max. 7 char) : "); scanf("%.8s", nTemp);
+    strcpy()
 }
