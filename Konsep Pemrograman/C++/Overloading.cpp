@@ -8,5 +8,4 @@ int main()
 {
     cout << "3 pangkat 3 adalah\t: " << cubic(3) << endl;
     cout << "1.76 pangkat 3 adalah\t: " << cubic(1.76) << endl;
-    //cout << "4 x 5 x 3 adalah\t: " << cubic(4, 5, 3) << endl;
 }
