@@ -1,0 +1,71 @@
+#include <iostream>
+
+using namespace std;
+
+class Cube{
+    private:
+        int x, y, z;
+
+    public:
+        static int count;
+        int id;
+
+    private:
+            void Create(){
+            count++;
+            id = count;
+        }
+
+    public:
+        Cube(int _x, int _y, int _z){
+            x = _x;
+            y = _y;
+            z = _z;
+            Create();
+        }
+
+        Cube(int _x){
+            x = y = z = _x;
+            Create();
+        }
+
+        Cube(){
+            Create();
+            cout << "Cube " << id << " has been created." << endl;
+        }
+
+        int Area(){
+            return (2 * (x * y)) + (2 * (x * z)) + (2 * (z * y));
+        }
+
+        int Volume(){
+            return x * y * z;
+        }
+
+        ~Cube(){
+            count--;
+            cout << "Cube " << id << "has been destroyed" << endl;
+        }
+};
+
+int Cube::count = 0;
+
+int main(){
+    Cube cube1(3, 5, 6);
+    cout<< "\nLuas Permukaan kubus " << cube1.id << "\t\t:" << cube1.Area() << endl;
+    cout<< "Volume Permukaan kubus " << cube1.id << "\t:" << cube1.Volume() << endl;
+
+    Cube cube2(6, 2, 4);
+    cout<< "\nLuas Permukaan kubus " << cube2.id << "\t\t:" << cube2.Area() << endl;
+    cout<< "Volume Permukaan kubus " << cube2.id << "\t:"  << cube2.Volume() << endl;
+
+    Cube cube3(5);
+    cout<< "\nLuas Permukaan kubus " << cube3.id << "\t\t:" << cube3.Area() << endl;
+    cout<< "Volume Permukaan kubus " << cube3.id << "\t:"  << cube3.Volume() << endl;
+
+    cout << "Cube 1 id : " << cube1.id<< endl;
+
+    Cube cube4;
+
+    cout << "Count : " << cube1.count<< endl;
+}
