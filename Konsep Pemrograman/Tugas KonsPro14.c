@@ -1,149 +1,83 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <signal.h>
 
-enum SIGS{ ABRT   = 1, FPE, ILL, INT, SEGV , TERM  };
-enum MENU{ SIGNAL = 1, SAVE, LOAD, DISPLAY, UPDATE };
+enum JenisKelamin { Pria, Wanita };
 
 typedef struct{
-    char name[8];
-    int counter;
-}SIG;
+    char NIM[8];
+    char nama[20];
+    int jk;
+    float IPK;
+}mahasiswa;
 
-SIG signals[6] = {
-    {"SIGABRT", 0}, {"SIGFPE",  0},
-    {"SIGILL",  0}, {"SIGINT",  0},
-    {"SIGSEGV", 0}, {"SIGTERM", 0},
-};
+void AddData(FILE*);
 
-int  Menu();
-void SHMenu();
-void Signaling();
-void Save(FILE*);
-void Load(FILE*);
-void Display();
-void Update(SIG*);
+int menu();
 
 int main()
 {
-    FILE *signalList = NULL;
+    FILE* dataFile = NULL;
+    mahasiswa siswa[10];
     
-    signal(SIGABRT, Signaling);
-    signal(SIGFPE , Signaling);
-    signal(SIGILL , Signaling);
-    signal(SIGINT , Signaling);
-    signal(SIGSEGV, Signaling);
-    signal(SIGTERM, Signaling);
+    char fileName[15];
+    printf("Enter file Name : "); scanf("%s", fileName);
     
-    if((signalList = fopen("List", "rb+")) == NULL){
-        printf("File cannot be found.");
-    }else{
-        int c;
-        menu:
-        switch(c = Menu()){
-            case SIGNAL:
-                SHMenu();
-            break;
-            case SAVE:
-                Save(signalList);
-            break;
-            case LOAD:
-                Load(signalList);
-            break;
-            case DISPLAY:
-                Display();
-            break;
-            case UPDATE:
-                Update(signals);
-            break;
-            default:
-                exit(1);
-            break;
-        }
-        goto menu;
+    if((dataFile = fopen(fileName, "rb+")) == NULL){
+        dataFile = fopen(fileName, "wb+");
     }
-}
-
-int Menu(){
-    int n;
-    printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s", 
-            "-----MENU-----",
-            "1. Signal",
-            "2. Save", 
-            "3. Load", 
-            "4. Display", 
-            "5. Update", 
-            "6. Exit",
-            ">> "); scanf("%d", &n);
-    return n;
-}
-
-void SHMenu(){
-    int n;
-    printf("Call : \n%s\n%s\n%s\n%s\n%s\n%s\n%s", 
-            "1. SIGABRT", 
-            "2. SIGFPE", 
-            "3. SIGILL",
-            "4. SIGINT",
-            "5. SIGSEGV",
-            "6. SIGTERM",
-            ">> ");
-    scanf("%d", &n);
-    switch(n){
-        case ABRT:
-            raise(SIGABRT);
+    
+    switch(menu()){
+        case 1: AddData(dataFile); break;
+        case 2:
         break;
-        case FPE:
-            raise(SIGFPE);
-        break;
-        case ILL:
-            raise(SIGILL);
-        break;
-        case INT:
-            raise(SIGINT);
-        break;
-        case SEGV:
-            raise(SIGSEGV);
-        break;
-        case TERM:
-            raise(SIGTERM);
-        break;
-        default:
-        break;
-    }
-}
-
-void Signaling(int n){
-    printf("This is signal %d\n%s", n, "This signal is ");
-    switch(n){
-        case 6:
-            puts("called when there is abnormal termination of the program.");
-            signals[0].counter++;
-        break;
-        case 8:
-            puts("called when there is an erroneous arithmetic operation.");
-            signals[1].counter++;
+        case 3:
         break;
         case 4:
-            puts("called when there is detection of illegal instruction.");
-            signals[2].counter++;
         break;
-        case 2:
-            puts("a receipt of an interactive attention signal.");
-            signals[3].counter++;
+        case 5:
         break;
-        case 11:
-            puts("called when there is an attempt to access to memory that is not allocated to a program.");
-            signals[4].counter++;
-        break;
-        case 15:
-            puts("called when there is a termination request sent to a program.");
-            signals[5].counter++;
+        case 6:
         break;
     }
 }
 
+void AddData(FILE *file){
+    int index;
+    char sindex[3];
+    
+    char _NIM[8];
+    char _name[20];
+    char _gender[10]; int gndr = 0;
+    float _ipk;
+    
+    mahasiswa mhs = { "", "", 0, 0};
+    
+    printf("Masukkan NIM    : "); scanf("%s", _NIM);
+    printf("Masukkan name   : "); scanf("%s", _name);
+    printf("Masukkan gender : "); scanf("%s", _gender);
+    printf("Masukkan IPK    : "); scanf("%f", &_ipk);
+    
+    strcpy(mhs.NIM, _NIM);
+    strcpy(mhs.nama, _name);
+    mhs.IPK = _ipk;
+    
+    for(int i = 0; i < 3; i++) sindex[i] = _NIM[6 + i]; //get the last three digit from NIM
+    index = atoi(sindex); //get index from NIM
+    
+    if(strcmp(_gender, "Laki-Laki") || strcmp(_gender, "laki-laki") 
+        || strcmp(_gender, "Pria") || strcmp(_gender, "pria")){
+        mhs.jk = 1; //Woman
+    }else if(strcmp(_gender, "Perempuan") || strcmp(_gender, "perempuan") 
+        || strcmp(_gender, "Wanita") || strcmp(_gender, "wanita")){
+        mhs.jk = 0; //Man
+    }
+    
+    rewind(file);
+    fwrite(&mhs, index * sizeof(mahasiswa), 1, file);
+}
+
+/*
 void Save(FILE *file){
     rewind(file);
     for(int i = 0; i < 6; i++) fwrite(&signals[i], sizeof(SIG), 1, file);
@@ -155,16 +89,18 @@ void Load(FILE *file){
     for(int i = 0; i < 6; i++) fread(&signals[i], sizeof(SIG), 1, file);    
     puts("Data has been loaded.");
 }
+*/
 
-void Display(){
-    for(int i = 0; i < 6; i++) printf("%d. %s called %d times\n", i+1, signals[i].name, signals[i].counter);
-}
-
-void Update(SIG *s){
-    int n; char nTemp[8];
-    Display();
-    printf("\nChoose Signal you want to update    : "); scanf("%d",  &n);
-    printf("Write new signal name (max. 7 char) : "); scanf("%s", nTemp);
-    strcpy(s[n-1].name, nTemp);
-    s[n-1].counter = 0;
+int menu(){
+    int c;
+    printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n>> ",
+    "============Menu============",
+    "1. Add Data",
+    "2. Update Data",
+    "3. Delete Data",
+    "4. Print Data",
+    "5. Import Data from File",
+    "6. Export Data to File");
+    scanf("%d", &c);
+    return c;
 }
