@@ -41,10 +41,18 @@ int main()
 
 void AddData(FILE *file){
     int index;
+    char sindex[3];
+    
     char _NIM[8];
     char _name[20];
-    printf("Enter NIM  : "); scanf("%s", _NIM);
-    printf("Enter name : "); scanf("%s", _name);
+    char _gender[10];
+    float _ipk;
+    printf("Enter NIM    : "); scanf("%s", _NIM);
+    printf("Enter name   : "); scanf("%s", _name);
+    printf("Enter gender : "); scanf("%s", _gender);
+    printf("Enter IPK    : "); scanf("%f", &_ipk);
+    for(int i = 0; i < 3; i++) sindex[i] = _NIM[6 + i];
+    index = atoi(sindex);
 }
 
 int menu(){
