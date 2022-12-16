@@ -6,7 +6,7 @@ enum JenisKelamin { Pria, Wanita };
 
 typedef struct{
     char NIM[8];
-    char nama[20];
+    char name[20];
     int jk;
     float IPK;
 }mahasiswa;
@@ -24,21 +24,28 @@ int main()
     printf("Enter file Name : "); scanf("%s", fileName);
     
     if((dataFile = fopen(fileName, "rb+")) == NULL){
-        dataFile = fopen(fileName, "wb+");
+        dataFile = fopen(fileName, "wb+"); dataFile = fopen(fileName, "rb+");
     }
     
-    switch(menu()){
-        case 1: AddData(dataFile); break;
-        case 2:
-        break;
-        case 3:
-        break;
-        case 4:
-        break;
-        case 5:
-        break;
-        case 6:
-        break;
+    int choice;
+    while((choice = menu()) != 7){
+        switch(choice){
+            case 1: AddData(dataFile); break;
+            case 2:
+            break;
+            case 3:
+            break;
+            case 4:
+            break;
+            case 5:
+            break;
+            case 6:
+            break;
+            case 7:
+            break;
+            default:
+            break;
+        }   
     }
 }
 
@@ -54,27 +61,34 @@ void AddData(FILE *file){
     mahasiswa mhs = { "", "", 0, 0};
     
     printf("Masukkan NIM    : "); scanf("%s", _NIM);
-    printf("Masukkan name   : "); scanf("%s", _name);
+    printf("Masukkan nama   : "); scanf("%s", _name);
     printf("Masukkan gender : "); scanf("%s", _gender);
     printf("Masukkan IPK    : "); scanf("%f", &_ipk);
     
     strcpy(mhs.NIM, _NIM);
-    strcpy(mhs.nama, _name);
+    strcpy(mhs.name, _name);
     mhs.IPK = _ipk;
     
-    for(int i = 0; i < 3; i++) sindex[i] = _NIM[6 + i]; //get the last three digit from NIM
+    for(int i = 0; i < 3; i++) sindex[i] = _NIM[5 + i]; //get the last three digit from NIM
     index = atoi(sindex); //get index from NIM
     
-    if(strcmp(_gender, "Laki-Laki") || strcmp(_gender, "laki-laki") 
-        || strcmp(_gender, "Pria") || strcmp(_gender, "pria")){
-        mhs.jk = 1; //Woman
-    }else if(strcmp(_gender, "Perempuan") || strcmp(_gender, "perempuan") 
-        || strcmp(_gender, "Wanita") || strcmp(_gender, "wanita")){
+    if(!strcmp(_gender, "Laki-Laki") || !strcmp(_gender, "laki-laki") 
+        || !strcmp(_gender, "Pria") || !strcmp(_gender, "pria")){
         mhs.jk = 0; //Man
+    }else if(!strcmp(_gender, "Perempuan") || !strcmp(_gender, "perempuan") 
+        || !strcmp(_gender, "Wanita") || !strcmp(_gender, "wanita")){
+        mhs.jk = 1; //Woman
     }
+    printf("%d\n", mhs.jk);
+    printf("%f\n", mhs.IPK);
     
     rewind(file);
-    fwrite(&mhs, index * sizeof(mahasiswa), 1, file);
+    fwrite(&mhs, (index - 1) * sizeof(mahasiswa), 1, file);
+}
+
+
+void UpdateData(FILE* file){
+    printf("Masukkan NIM    : ");
 }
 
 /*
@@ -93,14 +107,15 @@ void Load(FILE *file){
 
 int menu(){
     int c;
-    printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n>> ",
+    printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n>> ",
     "============Menu============",
     "1. Add Data",
     "2. Update Data",
     "3. Delete Data",
     "4. Print Data",
     "5. Import Data from File",
-    "6. Export Data to File");
+    "6. Export Data to File",
+    "7. Exit");
     scanf("%d", &c);
     return c;
 }
