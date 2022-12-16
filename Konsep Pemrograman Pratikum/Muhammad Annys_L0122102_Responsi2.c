@@ -5,30 +5,33 @@
 typedef struct{
     char NIM[8];
     char nama[20];
-    enum JenisKelamin { 
+    float IPK;
+    enum JenisKelamin jk{ 
         Pria, 
         Wanita 
     };
-    float IPK;
-}
+}mahasiswa;
+
+int menu();
 
 int main()
 {
-    printf("Hello World");
-
-    return 0;
+    switch(menu()){
+        case 1:
+        break;
+    }
 }
 
 int menu(){
     int c;
-    printf("%s\n%s\n%s\n%s\n%s\n%s\n>> ",
+    printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n>> ",
     "============Menu============",
     "1. Add Data",
     "2. Update Data",
     "3. Delete Data",
     "4. Print Data",
     "5. Import Data from File",
-    "6. Export Data to File",);
+    "6. Export Data to File");
     scanf("%d", &c);
     return c;
 }
