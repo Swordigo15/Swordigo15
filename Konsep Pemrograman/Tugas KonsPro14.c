@@ -24,7 +24,7 @@ int main()
     printf("Enter file Name : "); scanf("%s", fileName);
     
     if((dataFile = fopen(fileName, "rb+")) == NULL){
-        dataFile = fopen(fileName, "wb+"); dataFile = fopen(fileName, "rb+");
+        //dataFile = fopen(fileName, "wb+"); dataFile = fopen(fileName, "rb+");
     }
     
     int choice;
@@ -60,10 +60,10 @@ void AddData(FILE *file){
     
     mahasiswa mhs = { "", "", 0, 0};
     
-    printf("Masukkan NIM    : "); scanf("%s", _NIM);
-    printf("Masukkan nama   : "); scanf("%s", _name);
-    printf("Masukkan gender : "); scanf("%s", _gender);
-    printf("Masukkan IPK    : "); scanf("%f", &_ipk);
+    printf("Masukkan NIM    : "); scanf(" %[^\n]s", _NIM);
+    printf("Masukkan nama   : "); scanf(" %[^\n]s", _name);
+    printf("Masukkan gender : "); scanf(" %[^\n]s", _gender);
+    printf("Masukkan IPK    : "); scanf(" %f", &_ipk);
     
     strcpy(mhs.NIM, _NIM);
     strcpy(mhs.name, _name);
@@ -79,11 +79,11 @@ void AddData(FILE *file){
         || !strcmp(_gender, "Wanita") || !strcmp(_gender, "wanita")){
         mhs.jk = 1; //Woman
     }
-    printf("%d\n", mhs.jk);
-    printf("%f\n", mhs.IPK);
+    
+    printf("%d\n%d\n%f\n", index, mhs.jk, mhs.IPK);
     
     rewind(file);
-    fwrite(&mhs, (index - 1) * sizeof(mahasiswa), 1, file);
+    fwrite(&mhs, index * sizeof(mahasiswa), 1, file);
 }
 
 
@@ -97,7 +97,6 @@ void Save(FILE *file){
     for(int i = 0; i < 6; i++) fwrite(&signals[i], sizeof(SIG), 1, file);
     puts("Data has been saved.");
 }
-
 void Load(FILE *file){
     rewind(file);
     for(int i = 0; i < 6; i++) fread(&signals[i], sizeof(SIG), 1, file);    
