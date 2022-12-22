@@ -5,22 +5,23 @@
 #define MHSCOUNT 10
 
 typedef struct{
-    char NIM[9];
+    char NIM[10];
     char name[20];
     char jk[10];
     float IPK;
 }mahasiswa;
 
-void AddData(FILE*);
-void UpdateData(FILE*)
-void PrintData(mahasiswa[]);
+void AddData    (FILE*);
+void UpdateData (FILE*);
+void PrintData  ();
 
 int menu();
+
+mahasiswa siswa[MHSCOUNT];
 
 int main()
 {
     FILE* dataFile = NULL;
-    mahasiswa siswa[MHSCOUNT];
     
     char fileName[15];
     printf("Enter file Name : "); scanf("%s", fileName);
@@ -36,7 +37,7 @@ int main()
             case 2: UpdateData(dataFile); break;
             case 3:
             break;
-            case 4: PrintData(siswa); break;
+            case 4: PrintData(); break;
             case 5:
             break;
             case 6:
@@ -58,43 +59,78 @@ void AddData(FILE *file){
     char _gender[10]; int gndr = 0;
     float _ipk;
     
-    mahasiswa mhs = { "", "", "", 0};
-    
     printf("Masukkan NIM    : "); scanf(" %8[^\n]" , _NIM);
     printf("Masukkan nama   : "); scanf(" %20[^\n]", _name);
     printf("Masukkan gender : "); scanf(" %10[^\n]", _gender);
     printf("Masukkan IPK    : "); scanf(" %f"      , &_ipk);
     
-    strcpy(mhs.NIM, _NIM);
-    strcpy(mhs.name, _name);
-    strcpy(mhs.jk, _gender);
-    mhs.IPK = _ipk;
-    
     for(int i = 0; i < 3; i++) sindex[i] = _NIM[5 + i]; //get the last three digit from NIM
-    index = atoi(sindex); //get index from NIM
+    index = atoi(sindex) - 1; //get index from NIM
     
-    printf("%d\n%f\n", index, mhs.IPK);
+    strcpy(siswa[index].NIM,  _NIM);
+    strcpy(siswa[index].name, _name);
+    strcpy(siswa[index].jk,   _gender);
+    siswa[index].IPK = _ipk;
     
     fseek(file, (index - 1) * sizeof(mahasiswa), SEEK_SET);
-    fwrite(&mhs, sizeof(mahasiswa), 1, file);
+    fwrite(&siswa[index], sizeof(mahasiswa), 1, file);
 }
 
 
 void UpdateData(FILE* file){
-    int index;
+    int x;
     char sindex[3];
     
     char _NIM[8];
+    
+    PrintData();
+    
     printf("============Edit============\nMasukkan NIM    : "); scanf(" %8[^\n]" , _NIM);
     for(int i = 0; i < 3; i++) sindex[i] = _NIM[5 + i]; //get the last three digit from NIM
-    index = atoi(sindex); //get index from NIM
-}
-
-
-void PrintData(mahasiswa mhs[]){
+    x = atoi(sindex); //get index from NIM
+    
+    int c;
     printf("%-10s %-20s\t\t %-11s %-4s\n",
         "NIM","Nama Mahasiswa","Kelamin","IPK");
-    for(int i = 0; i < MHSCOUNT; i++)printf("%-10s %-20s\t\t %-11s %-4f\n", mhs[i].NIM, mhs[i].name, mhs[i].jk, mhs[i].IPK);
+    printf("%-10s %-20s\t\t %-11s %-4f\n", 
+        siswa[x].NIM, siswa[x].name, siswa[x].jk, siswa[x].IPK);
+    printf("%s\n%s\n>> ", "1. Nama", "2.IPK"); scanf("%d", &c);
+    switch(c){
+        case 1:
+        break;
+        case 2:
+        break;
+        default:
+        break;
+    }
+}
+
+void DeleteData(FILE* file){
+    int x;
+    char sindex[3];
+    
+    char _NIM[8];
+    
+    Mahasiswa mhsTemp = { "", "", "", 0 };
+    
+    PrintData();
+    
+    printf("===========Delete===========\nMasukkan NIM    : "); scanf(" %8[^\n]" , _NIM);
+    for(int i = 0; i < 3; i++) sindex[i] = _NIM[5 + i]; //get the last three digit from NIM
+    x = atoi(sindex); //get index from NIM
+    
+    strcpy(siswa[x].NIM,  mhsTemp.NIM);
+    strcpy(siswa[x].name, mhsTemp.name);
+    strcpy(siswa[x].jk,   mhsTemp.jk);
+    siswa[x].IPK = mhsTemp.IPK;
+}
+
+void PrintData(){
+    printf("%-10s %-20s\t\t %-11s %-4s\n",
+        "NIM","Nama Mahasiswa","Kelamin","IPK");
+    for(int i = 0; i < MHSCOUNT; i++)
+        printf("%-10s %-20s\t\t %-11s %-4f\n", 
+        siswa[i].NIM, siswa[i].name, siswa[i].jk, siswa[i].IPK);
 }
 /*
 void Save(FILE *file){
