@@ -13,6 +13,7 @@ typedef struct{
 
 void AddData    (FILE*);
 void UpdateData (FILE*);
+void DeleteData ();
 void PrintData  ();
 
 int menu();
@@ -33,11 +34,10 @@ int main()
     int choice;
     while((choice = menu()) != 7){
         switch(choice){
-            case 1: AddData(dataFile); break;
-            case 2: UpdateData(dataFile); break;
-            case 3:
-            break;
-            case 4: PrintData(); break;
+            case 1: AddData(dataFile);      break;
+            case 2: UpdateData(dataFile);   break;
+            case 3: DeleteData();           break;
+            case 4: PrintData();            break;
             case 5:
             break;
             case 6:
@@ -105,13 +105,13 @@ void UpdateData(FILE* file){
     }
 }
 
-void DeleteData(FILE* file){
+void DeleteData(){
     int x;
     char sindex[3];
     
     char _NIM[8];
     
-    Mahasiswa mhsTemp = { "", "", "", 0 };
+    mahasiswa mhsTemp = { "", "", "", 0 };
     
     PrintData();
     
@@ -123,6 +123,8 @@ void DeleteData(FILE* file){
     strcpy(siswa[x].name, mhsTemp.name);
     strcpy(siswa[x].jk,   mhsTemp.jk);
     siswa[x].IPK = mhsTemp.IPK;
+    
+    printf("Delete Complete ...");
 }
 
 void PrintData(){
