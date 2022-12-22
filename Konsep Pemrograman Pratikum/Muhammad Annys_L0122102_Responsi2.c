@@ -2,12 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-enum JenisKelamin { Pria, Wanita };
-
 typedef struct{
-    char NIM[8];
+    char NIM[9];
     char name[20];
-    int jk;
+    char jk[10];
     float IPK;
 }mahasiswa;
 
@@ -24,7 +22,7 @@ int main()
     printf("Enter file Name : "); scanf("%s", fileName);
     
     if((dataFile = fopen(fileName, "rb+")) == NULL){
-        //dataFile = fopen(fileName, "wb+"); dataFile = fopen(fileName, "rb+");
+        dataFile = fopen(fileName, "wb+");
     }
     
     int choice;
@@ -58,32 +56,33 @@ void AddData(FILE *file){
     char _gender[10]; int gndr = 0;
     float _ipk;
     
-    mahasiswa mhs = { "", "", 0, 0};
+    mahasiswa mhs = { "", "", "", 0};
     
     printf("Masukkan NIM    : "); scanf(" %8[^\n]", _NIM);
     printf("Masukkan nama   : "); scanf(" %20[^\n]", _name);
-    printf("Masukkan gender : "); scanf(" %[^\n]", _gender);
+    printf("Masukkan gender : "); scanf(" %10[^\n]", _gender);
     printf("Masukkan IPK    : "); scanf(" %f", &_ipk);
     
     strcpy(mhs.NIM, _NIM);
     strcpy(mhs.name, _name);
+    strcpy(mhs.jk, _gender);
     mhs.IPK = _ipk;
     
     for(int i = 0; i < 3; i++) sindex[i] = _NIM[5 + i]; //get the last three digit from NIM
     index = atoi(sindex); //get index from NIM
     
-    if(!strcmp(_gender, "Laki-Laki") || !strcmp(_gender, "laki-laki") 
+    /*if(!strcmp(_gender, "Laki-Laki") || !strcmp(_gender, "laki-laki") 
         || !strcmp(_gender, "Pria") || !strcmp(_gender, "pria")){
         mhs.jk = 0; //Man
     }else if(!strcmp(_gender, "Perempuan") || !strcmp(_gender, "perempuan") 
         || !strcmp(_gender, "Wanita") || !strcmp(_gender, "wanita")){
         mhs.jk = 1; //Woman
-    }
+    }*/
     
-    printf("%d\n%d\n%f\n", index, mhs.jk, mhs.IPK);
+    printf("%d\n%f\n", index, mhs.IPK);
     
-    rewind(file);
-    fwrite(&mhs, index * sizeof(mahasiswa), 1, file);
+    fseek(file, (index - 1) * sizeof(mahasiswa), SEEK_SET);
+    fwrite(&mhs, sizeof(mahasiswa), 1, file);
 }
 
 
