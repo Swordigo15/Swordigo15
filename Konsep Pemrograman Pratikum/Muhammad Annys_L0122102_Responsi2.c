@@ -20,7 +20,7 @@ void Export     (char[]);
 
 int menu();
 
-mahasiswa siswa[MHSCOUNT];
+mahasiswa* siswa[MHSCOUNT];
 
 int main()
 {
