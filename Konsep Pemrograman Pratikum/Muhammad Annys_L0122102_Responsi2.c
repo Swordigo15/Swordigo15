@@ -12,7 +12,8 @@ typedef struct{
 }mahasiswa;
 
 void AddData(FILE*);
-void PrintData(mahasiswa, int);
+void UpdateData(FILE*)
+void PrintData(mahasiswa[]);
 
 int menu();
 
@@ -32,12 +33,10 @@ int main()
     while((choice = menu()) != 7){
         switch(choice){
             case 1: AddData(dataFile); break;
-            case 2:
-            break;
+            case 2: UpdateData(dataFile); break;
             case 3:
             break;
-            case 4:
-            break;
+            case 4: PrintData(siswa); break;
             case 5:
             break;
             case 6:
@@ -82,21 +81,20 @@ void AddData(FILE *file){
 
 
 void UpdateData(FILE* file){
-    printf("Masukkan NIM    : ");
+    int index;
+    char sindex[3];
+    
+    char _NIM[8];
+    printf("============Edit============\nMasukkan NIM    : "); scanf(" %8[^\n]" , _NIM);
+    for(int i = 0; i < 3; i++) sindex[i] = _NIM[5 + i]; //get the last three digit from NIM
+    index = atoi(sindex); //get index from NIM
 }
 
 
-void PrintData(mahasiswa mhs[], int amount){
-    if(amount > 1){
-        printf("NIM\t: %.8s\nNama\t: %s\n Jenis Kelamin : %s\n IPK\t: %f", 
-            mhs[MHSCOUNT - amount].NIM, mhs[MHSCOUNT - amount].name, 
-            mhs[MHSCOUNT - amount].jk, mhs[MHSCOUNT - amount].IPK);
-        PrintData(mhs, amount-1);
-    }else{
-        printf("NIM\t: %.8s\nNama\t: %s\n Jenis Kelamin : %s\n IPK\t: %f", 
-            mhs[MHSCOUNT - amount].NIM, mhs[MHSCOUNT - amount].name, 
-            mhs[MHSCOUNT - amount].jk, mhs[MHSCOUNT - amount].IPK);
-    }
+void PrintData(mahasiswa mhs[]){
+    printf("%-10s %-20s\t\t %-11s %-4s\n",
+        "NIM","Nama Mahasiswa","Kelamin","IPK");
+    for(int i = 0; i < MHSCOUNT; i++)printf("%-10s %-20s\t\t %-11s %-4f\n", mhs[i].NIM, mhs[i].name, mhs[i].jk, mhs[i].IPK);
 }
 /*
 void Save(FILE *file){
