@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MHSCOUNT 10
+
 typedef struct{
     char NIM[9];
     char name[20];
@@ -10,13 +12,14 @@ typedef struct{
 }mahasiswa;
 
 void AddData(FILE*);
+void PrintData(mahasiswa, int);
 
 int menu();
 
 int main()
 {
     FILE* dataFile = NULL;
-    mahasiswa siswa[10];
+    mahasiswa siswa[MHSCOUNT];
     
     char fileName[15];
     printf("Enter file Name : "); scanf("%s", fileName);
@@ -58,10 +61,10 @@ void AddData(FILE *file){
     
     mahasiswa mhs = { "", "", "", 0};
     
-    printf("Masukkan NIM    : "); scanf(" %8[^\n]", _NIM);
+    printf("Masukkan NIM    : "); scanf(" %8[^\n]" , _NIM);
     printf("Masukkan nama   : "); scanf(" %20[^\n]", _name);
     printf("Masukkan gender : "); scanf(" %10[^\n]", _gender);
-    printf("Masukkan IPK    : "); scanf(" %f", &_ipk);
+    printf("Masukkan IPK    : "); scanf(" %f"      , &_ipk);
     
     strcpy(mhs.NIM, _NIM);
     strcpy(mhs.name, _name);
@@ -70,14 +73,6 @@ void AddData(FILE *file){
     
     for(int i = 0; i < 3; i++) sindex[i] = _NIM[5 + i]; //get the last three digit from NIM
     index = atoi(sindex); //get index from NIM
-    
-    /*if(!strcmp(_gender, "Laki-Laki") || !strcmp(_gender, "laki-laki") 
-        || !strcmp(_gender, "Pria") || !strcmp(_gender, "pria")){
-        mhs.jk = 0; //Man
-    }else if(!strcmp(_gender, "Perempuan") || !strcmp(_gender, "perempuan") 
-        || !strcmp(_gender, "Wanita") || !strcmp(_gender, "wanita")){
-        mhs.jk = 1; //Woman
-    }*/
     
     printf("%d\n%f\n", index, mhs.IPK);
     
@@ -90,6 +85,19 @@ void UpdateData(FILE* file){
     printf("Masukkan NIM    : ");
 }
 
+
+void PrintData(mahasiswa mhs[], int amount){
+    if(amount > 1){
+        printf("NIM\t: %.8s\nNama\t: %s\n Jenis Kelamin : %s\n IPK\t: %f", 
+            mhs[MHSCOUNT - amount].NIM, mhs[MHSCOUNT - amount].name, 
+            mhs[MHSCOUNT - amount].jk, mhs[MHSCOUNT - amount].IPK);
+        PrintData(mhs, amount-1);
+    }else{
+        printf("NIM\t: %.8s\nNama\t: %s\n Jenis Kelamin : %s\n IPK\t: %f", 
+            mhs[MHSCOUNT - amount].NIM, mhs[MHSCOUNT - amount].name, 
+            mhs[MHSCOUNT - amount].jk, mhs[MHSCOUNT - amount].IPK);
+    }
+}
 /*
 void Save(FILE *file){
     rewind(file);
