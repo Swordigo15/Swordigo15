@@ -15,6 +15,8 @@ void AddData    (FILE*);
 void UpdateData (FILE*);
 void DeleteData ();
 void PrintData  ();
+void Import     (char[]);
+void Export     (char[]);
 
 int menu();
 
@@ -25,10 +27,10 @@ int main()
     FILE* dataFile = NULL;
     
     char fileName[15];
-    printf("Enter file Name : "); scanf("%s", fileName);
+    printf("Enter file Name : "); scanf("%s", fileName); strcat(fileName, ".txt");
     
-    if((dataFile = fopen(fileName, "rb+")) == NULL){
-        dataFile = fopen(fileName, "wb+");
+    if((dataFile = fopen("SaveData.txt", "rb+")) == NULL){
+        dataFile = fopen("SaveData.txt", "wb+");
     }
     
     int choice;
@@ -38,12 +40,9 @@ int main()
             case 2: UpdateData(dataFile);   break;
             case 3: DeleteData();           break;
             case 4: PrintData();            break;
-            case 5:
-            break;
-            case 6:
-            break;
-            case 7:
-            break;
+            case 5: Import("SaveData.txt"); break;
+            case 6: Export(fileName);       break;
+            case 7: return 0;
             default:
             break;
         }   
@@ -56,13 +55,13 @@ void AddData(FILE *file){
     
     char _NIM[8];
     char _name[20];
-    char _gender[10]; int gndr = 0;
+    char _gender[10];
     float _ipk;
     
-    printf("Masukkan NIM    : "); scanf(" %8[^\n]" , _NIM);
-    printf("Masukkan nama   : "); scanf(" %20[^\n]", _name);
-    printf("Masukkan gender : "); scanf(" %10[^\n]", _gender);
-    printf("Masukkan IPK    : "); scanf(" %f"      , &_ipk);
+    printf("Masukkan NIM    : "); scanf(" %s"    , _NIM);
+    printf("Masukkan nama   : "); scanf(" %[^\n]", _name);
+    printf("Masukkan gender : "); scanf(" %[^\n]", _gender);
+    printf("Masukkan IPK    : "); scanf(" %f"    , &_ipk);
     
     for(int i = 0; i < 3; i++) sindex[i] = _NIM[5 + i]; //get the last three digit from NIM
     index = atoi(sindex) - 1; //get index from NIM
@@ -74,6 +73,7 @@ void AddData(FILE *file){
     
     fseek(file, (index - 1) * sizeof(mahasiswa), SEEK_SET);
     fwrite(&siswa[index], sizeof(mahasiswa), 1, file);
+    fclose(file);
 }
 
 
@@ -87,21 +87,26 @@ void UpdateData(FILE* file){
     
     printf("============Edit============\nMasukkan NIM    : "); scanf(" %8[^\n]" , _NIM);
     for(int i = 0; i < 3; i++) sindex[i] = _NIM[5 + i]; //get the last three digit from NIM
-    x = atoi(sindex); //get index from NIM
+    x = atoi(sindex) - 1; //get index from NIM
     
     int c;
-    printf("%-10s %-20s\t\t %-11s %-4s\n",
+    printf("%-9s%-21s%-11s%-5s\n",
         "NIM","Nama Mahasiswa","Kelamin","IPK");
-    printf("%-10s %-20s\t\t %-11s %-4f\n", 
+    printf("%-9s%-21s%-11s%-5.2f\n", 
         siswa[x].NIM, siswa[x].name, siswa[x].jk, siswa[x].IPK);
-    printf("%s\n%s\n>> ", "1. Nama", "2.IPK"); scanf("%d", &c);
-    switch(c){
-        case 1:
-        break;
-        case 2:
-        break;
-        default:
-        break;
+        
+    if(!strcmp(siswa[x].NIM, "")){
+        
+    }else{
+       printf("%s\n%s\n>> ", "1. Nama", "2. IPK"); scanf("%d", &c);
+        switch(c){
+            case 1:
+            break;
+            case 2:
+            break;
+            default:
+            break;
+        } 
     }
 }
 
@@ -128,11 +133,29 @@ void DeleteData(){
 }
 
 void PrintData(){
-    printf("%-10s %-20s\t\t %-11s %-4s\n",
+    printf("%-9s%-21s%-11s %-5s\n",
         "NIM","Nama Mahasiswa","Kelamin","IPK");
-    for(int i = 0; i < MHSCOUNT; i++)
-        printf("%-10s %-20s\t\t %-11s %-4f\n", 
-        siswa[i].NIM, siswa[i].name, siswa[i].jk, siswa[i].IPK);
+    for(int i = 0; i < MHSCOUNT; i++){
+        if(strcmp(siswa[i].NIM, ""))
+            printf("%-9.8s%-21.20s%-11.10s%-5.2f\n", 
+                siswa[i].NIM, siswa[i].name, siswa[i].jk, siswa[i].IPK);
+    }
+}
+
+void Import(char file[]){
+    FILE* filePtr = fopen(file, "r");
+}
+
+void Export(char file[]){
+    FILE* filePtr = fopen(file, "w");
+    fprintf(filePtr, "%-9s%-21s%-11s %-5s\n",
+        "NIM","Nama Mahasiswa","Kelamin","IPK");
+    for(int i = 0; i < MHSCOUNT; i++){
+        if(strcmp(siswa[i].NIM, ""))
+            fprintf(filePtr, "%-9.8s%-21.20s%-11.10s%-5g\n", 
+                siswa[i].NIM, siswa[i].name, siswa[i].jk, siswa[i].IPK);
+    }
+    fclose(filePtr)
 }
 /*
 void Save(FILE *file){
