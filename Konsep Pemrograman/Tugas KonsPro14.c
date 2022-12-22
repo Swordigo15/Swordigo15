@@ -60,9 +60,9 @@ void AddData(FILE *file){
     
     mahasiswa mhs = { "", "", 0, 0};
     
-    printf("Masukkan NIM    : "); scanf(" %[^\n]s", _NIM);
-    printf("Masukkan nama   : "); scanf(" %[^\n]s", _name);
-    printf("Masukkan gender : "); scanf(" %[^\n]s", _gender);
+    printf("Masukkan NIM    : "); scanf(" %8[^\n]", _NIM);
+    printf("Masukkan nama   : "); scanf(" %20[^\n]", _name);
+    printf("Masukkan gender : "); scanf(" %[^\n]", _gender);
     printf("Masukkan IPK    : "); scanf(" %f", &_ipk);
     
     strcpy(mhs.NIM, _NIM);
