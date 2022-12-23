@@ -5,32 +5,37 @@
 #define MHSCOUNT 10
 
 typedef struct{
-    char NIM[10];
-    char name[20];
-    char jk[10];
-    float IPK;
+    char NIM    [10];
+    char name   [20];
+    char jk     [10];
+    char IPK    [4];
 }mahasiswa;
 
 void AddData    (FILE*);
 void UpdateData (FILE*);
-void DeleteData ();
+void DeleteData (FILE*);
 void PrintData  ();
 void Import     (FILE*);
 void Export     (char[]);
 
 int menu();
 
-mahasiswa* siswa[MHSCOUNT];
+mahasiswa siswa[MHSCOUNT];
 
 int main()
 {
     FILE* dataFile = NULL;
     
     char fileName[15];
-    printf("Enter file Name : "); scanf("%s", fileName); strcat(fileName, ".txt");
+    char saveDataName[50];
     
-    if((dataFile = fopen("SaveData.txt", "rb+")) == NULL){
-        dataFile = fopen("SaveData.txt", "wb+");
+    printf("Enter file Name : "); scanf("%s", fileName);
+    
+    sprintf(saveDataName, "%sSaveData.txt", fileName);
+    strcat(fileName, ".txt");
+    
+    if((dataFile = fopen(saveDataName, "rb+")) == NULL){
+        dataFile = fopen(saveDataName, "wb+");
     }
     
     int choice;
@@ -38,50 +43,52 @@ int main()
         switch(choice){
             case 1: AddData(dataFile);      break;
             case 2: UpdateData(dataFile);   break;
-            case 3: DeleteData();           break;
+            case 3: DeleteData(dataFile);   break;
             case 4: PrintData();            break;
-            case 5: Import("SaveData.txt"); break;
+            case 5: Import(dataFile);       break;
             case 6: Export(fileName);       break;
             case 7: return 0;
             default:
+                puts("\nPlease choose existing choice.");
             break;
         }   
     }
 }
 
 void AddData(FILE *file){
-    int index;
+    int x;
     char sindex[3];
     
     char _NIM[8];
     char _name[20];
     char _gender[10];
-    float _ipk;
+    char _ipk[4];
     
-    printf("Masukkan NIM    : "); scanf(" %s"    , _NIM);
-    printf("Masukkan nama   : "); scanf(" %[^\n]", _name);
-    printf("Masukkan gender : "); scanf(" %[^\n]", _gender);
-    printf("Masukkan IPK    : "); scanf(" %f"    , &_ipk);
+    printf("Masukkan NIM    : "); scanf(" %[^\n]", _NIM     );
+    printf("Masukkan nama   : "); scanf(" %[^\n]", _name    );
+    printf("Masukkan gender : "); scanf(" %[^\n]", _gender  );
+    printf("Masukkan IPK    : "); scanf(" %[^\n]", _ipk     );
     
     for(int i = 0; i < 3; i++) sindex[i] = _NIM[5 + i]; //get the last three digit from NIM
-    index = atoi(sindex) - 1; //get index from NIM
+    x = atoi(sindex) - 1; //get index from NIM
     
-    strcpy(siswa[index].NIM,  _NIM);
-    strcpy(siswa[index].name, _name);
-    strcpy(siswa[index].jk,   _gender);
-    siswa[index].IPK = _ipk;
+    strcpy(siswa[x].NIM,  _NIM      );
+    strcpy(siswa[x].name, _name     );
+    strcpy(siswa[x].jk,   _gender   );
+    strcpy(siswa[x].IPK,  _ipk      );
     
-    fseek(file, (index - 1) * sizeof(mahasiswa), SEEK_SET);
-    fwrite(&siswa[index], sizeof(mahasiswa), 1, file);
+    fseek (file, x * sizeof(mahasiswa), SEEK_SET);
+    fwrite(&siswa[x], sizeof(mahasiswa), 1, file);
     fclose(file);
 }
 
 
 void UpdateData(FILE* file){
-    int x;
+    int x, finish = 0;
     char sindex[3];
     
     char _NIM[8];
+    char change[20];
     
     PrintData();
     
@@ -92,31 +99,38 @@ void UpdateData(FILE* file){
     int c;
     printf("%-9s%-21s%-11s%-5s\n",
         "NIM","Nama Mahasiswa","Kelamin","IPK");
-    printf("%-9s%-21s%-11s%-5.2f\n", 
+    printf("%-9.8s%-21.20s%-11.10s%-5.4s\n", 
         siswa[x].NIM, siswa[x].name, siswa[x].jk, siswa[x].IPK);
         
     if(!strcmp(siswa[x].NIM, "")){
-        
+        printf("Cannot find student with that NIM.\n");
     }else{
-       printf("%s\n%s\n>> ", "1. Nama", "2. IPK"); scanf("%d", &c);
-        switch(c){
-            case 1:
-            break;
-            case 2:
-            break;
-            default:
-            break;
-        } 
+        printf("%s\n%s\n>> ", "1. Nama", "2. IPK"); scanf("%d", &c);
+        do{
+            printf("Enter new data : "); scanf(" %[^\n]", change);
+            switch(c){
+                case 1:
+                    
+                    strcpy(siswa[x].name, change);
+                    finish = 1;
+                break;
+                case 2:
+                    strcpy(siswa[x].IPK, change);
+                    finish = 1;
+                break;
+                default:
+                break;
+            }  
+        }while(finish == 0);
     }
+    printf("\nEdit Complete ...\n");
 }
 
-void DeleteData(){
+void DeleteData(FILE *file){
     int x;
     char sindex[3];
     
     char _NIM[8];
-    
-    mahasiswa mhsTemp = { "", "", "", 0 };
     
     PrintData();
     
@@ -124,30 +138,40 @@ void DeleteData(){
     for(int i = 0; i < 3; i++) sindex[i] = _NIM[5 + i]; //get the last three digit from NIM
     x = atoi(sindex); //get index from NIM
     
-    strcpy(siswa[x].NIM,  mhsTemp.NIM);
-    strcpy(siswa[x].name, mhsTemp.name);
-    strcpy(siswa[x].jk,   mhsTemp.jk);
-    siswa[x].IPK = mhsTemp.IPK;
+    strcpy(siswa[x].NIM,  "");
+    strcpy(siswa[x].name, "");
+    strcpy(siswa[x].jk,   "");
+    strcpy(siswa[x].IPK,  "");
     
-    printf("Delete Complete ...");
+    fseek (file, x * sizeof(mahasiswa), SEEK_SET);
+    fwrite(&siswa[x], sizeof(mahasiswa), 1, file);
+    fclose(file);
+    
+    printf("\nDelete Complete ...\n");
 }
 
 void PrintData(){
-    printf("%-9s%-21s%-11s %-5s\n",
+    printf("============Data============");
+    printf("\n%-9s%-21s%-11s %-5s\n",
         "NIM","Nama Mahasiswa","Kelamin","IPK");
     for(int i = 0; i < MHSCOUNT; i++){
         if(strcmp(siswa[i].NIM, ""))
-            printf("%-9.8s%-21.20s%-11.10s%-5.2f\n", 
+            printf("%-9.8s%-21.20s%-11.10s%-5.4s\n", 
                 siswa[i].NIM, siswa[i].name, siswa[i].jk, siswa[i].IPK);
     }
 }
 
 void Import(FILE* file){
-    file = fopen("SaveData.txt", "rb+");
-    rewind(file);
-    for(int i = 0; i < MHSCOUNT; i++){
-        fread(&siswa[i], sizeof(mahasiswa), 1, file);
+    if((file = fopen("SaveData.txt", "rb+")) == NULL){
+        printf("File cannot be opened.");
+        return;
+    }else{
+        rewind(file);
+        for(int i = 0; i < MHSCOUNT; i++){
+            fread(&siswa[i], sizeof(mahasiswa), 1, file);
+        }   
     }
+    printf("\nImport Complete ...\n");
     fclose(file);
 }
 
@@ -157,23 +181,12 @@ void Export(char file[]){
         "NIM","Nama Mahasiswa","Kelamin","IPK");
     for(int i = 0; i < MHSCOUNT; i++){
         if(strcmp(siswa[i].NIM, ""))
-            fprintf(filePtr, "%-9.8s%-21.20s%-11.10s%-5g\n", 
+            fprintf(filePtr, "%-9.8s%-21.20s%-11.10s%-5.4s\n", 
                 siswa[i].NIM, siswa[i].name, siswa[i].jk, siswa[i].IPK);
     }
+    printf("\nExport Complete ...\n");
     fclose(filePtr);
 }
-/*
-void Save(FILE *file){
-    rewind(file);
-    for(int i = 0; i < 6; i++) fwrite(&signals[i], sizeof(SIG), 1, file);
-    puts("Data has been saved.");
-}
-void Load(FILE *file){
-    rewind(file);
-    for(int i = 0; i < 6; i++) fread(&signals[i], sizeof(SIG), 1, file);    
-    puts("Data has been loaded.");
-}
-*/
 
 int menu(){
     int c;
