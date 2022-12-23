@@ -15,7 +15,7 @@ void AddData    (FILE*);
 void UpdateData (FILE*);
 void DeleteData ();
 void PrintData  ();
-void Import     (char[]);
+void Import     (FILE*);
 void Export     (char[]);
 
 int menu();
@@ -142,8 +142,13 @@ void PrintData(){
     }
 }
 
-void Import(char file[]){
-    FILE* filePtr = fopen(file, "r");
+void Import(FILE* file){
+    file = fopen("SaveData.txt", "rb+");
+    rewind(file);
+    for(int i = 0; i < MHSCOUNT; i++){
+        fread(&siswa[i], sizeof(mahasiswa), 1, file);
+    }
+    fclose(file);
 }
 
 void Export(char file[]){
@@ -155,7 +160,7 @@ void Export(char file[]){
             fprintf(filePtr, "%-9.8s%-21.20s%-11.10s%-5g\n", 
                 siswa[i].NIM, siswa[i].name, siswa[i].jk, siswa[i].IPK);
     }
-    fclose(filePtr)
+    fclose(filePtr);
 }
 /*
 void Save(FILE *file){
