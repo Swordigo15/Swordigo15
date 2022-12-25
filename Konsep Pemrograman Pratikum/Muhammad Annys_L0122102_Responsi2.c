@@ -120,6 +120,7 @@ void UpdateData(FILE* file){
                     finish = 1;
                 break;
                 default:
+                    printf("Please enter the right input.");
                 break;
             }  
         }while(finish == 0);
