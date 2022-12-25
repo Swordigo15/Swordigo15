@@ -95,8 +95,7 @@ void UpdateData(FILE* file){
     char sindex[3];
     
     char _NIM[8];
-    char nChange[20];
-    float fChange;
+    char change[20];
     
     PrintData();
     
@@ -113,17 +112,22 @@ void UpdateData(FILE* file){
     if(!strcmp(siswa[x].NIM, "")){
         printf("Cannot find student with that NIM.\n");
     }else{
-        printf("%s\n%s\n>> ", "1. Nama", "2. IPK"); scanf("%d", &c);
+        printf("%s\n%s\n%s\n>> ", "1. Nama", "2. Gender", "3. IPK"); scanf("%d", &c);
         do{
             switch(c){
                 case 1:
-                    printf("Enter new name : "); scanf(" %[^\n]", nChange);
-                    strcpy(siswa[x].name, nChange);
+                    printf("Enter new name : "); scanf(" %[^\n]", change);
+                    strcpy(siswa[x].name, change);
                     finish = 1;
                 break;
                 case 2:
-                    printf("Enter new IPK  : "); scanf(" %[^\n]", nChange);
-                    strcpy(siswa[x].IPK, nChange);
+                    printf("Enter new gender : "); scanf(" %[^\n]", change);
+                    strcpy(siswa[x].jk, change);
+                    finish = 1;
+                break;
+                case 3:
+                    printf("Enter new IPK  : "); scanf(" %[^\n]", change);
+                    strcpy(siswa[x].IPK, change);
                     finish = 1;
                 break;
                 default:
@@ -135,7 +139,6 @@ void UpdateData(FILE* file){
     
     fseek (file, x * sizeof(mahasiswa), SEEK_SET);
     fwrite(&siswa[x], sizeof(mahasiswa), 1, file);
-    //fclose(file);
     
     printf("\nEdit Complete ...\n");
 }
