@@ -53,6 +53,7 @@ int main()
             break;
         }   
     }
+    fclose(dataFile);
 }
 
 void AddData(FILE *file){
@@ -84,7 +85,8 @@ void AddData(FILE *file){
     
     fseek (file, x * sizeof(mahasiswa), SEEK_SET);
     fwrite(&siswa[x], sizeof(mahasiswa), 1, file);
-    fclose(file);
+    //fclose(file);
+    printf("saved.\n");
 }
 
 
@@ -133,7 +135,7 @@ void UpdateData(FILE* file){
     
     fseek (file, x * sizeof(mahasiswa), SEEK_SET);
     fwrite(&siswa[x], sizeof(mahasiswa), 1, file);
-    fclose(file);
+    //fclose(file);
     
     printf("\nEdit Complete ...\n");
 }
@@ -148,19 +150,14 @@ void DeleteData(FILE *file){
     
     printf("===========Delete===========\nMasukkan NIM    : "); scanf(" %8[^\n]" , _NIM);
     for(int i = 0; i < 3; i++) sindex[i] = _NIM[5 + i]; //get the last three digit from NIM
-    x = atoi(sindex); //get index from NIM
+    x = atoi(sindex) - 1; //get index from NIM
     
-    strcpy(siswa[x].NIM,  "");
-    strcpy(siswa[x].name, "");
-    strcpy(siswa[x].jk,   "");
-    strcpy(siswa[x].IPK,  "");
-    
-    printf("%-9.8s%-21.20s%-11.10s%-5s\n", 
-                siswa[x].NIM, siswa[x].name, siswa[x].jk, siswa[x].IPK);
+    mahasiswa mhsTemp = { "", "", "", "" };
     
     fseek (file, x * sizeof(mahasiswa), SEEK_SET);
-    fwrite(&siswa[x], sizeof(mahasiswa), 1, file);
-    fclose(file);
+    fwrite(&mhsTemp, sizeof(mahasiswa), 1, file);
+    Import(file);
+    //fclose(file);
     
     printf("\nDelete Complete ...\n");
 }
@@ -188,7 +185,6 @@ void Import(FILE* file){
         }   
     }
     printf("\nImport Complete ...\n");
-    fclose(file);
 }
 
 void Export(char file[]){
