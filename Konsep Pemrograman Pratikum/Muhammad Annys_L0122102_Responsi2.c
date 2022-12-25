@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MHSCOUNT 10
+#define MHSCOUNT 150
 
 typedef struct{
     char NIM    [10];
     char name   [20];
     char jk     [10];
-    float IPK;
+    char IPK    [4];
 }mahasiswa;
 
 void AddData    (FILE*);
@@ -57,25 +57,30 @@ int main()
 
 void AddData(FILE *file){
     int x;
-    char sindex[3];
+    char sindex [3];
     
-    char _NIM[8];
-    char _name[20];
+    char _NIM   [8];
+    char _name  [20];
     char _gender[10];
-    float _ipk;
+    char _ipk   [4];
     
     printf("Masukkan NIM    : "); scanf(" %[^\n]", _NIM     );
-    printf("Masukkan nama   : "); scanf(" %[^\n]", _name    );
-    printf("Masukkan gender : "); scanf(" %[^\n]", _gender  );
-    printf("Masukkan IPK    : "); scanf(" %f"    , &_ipk     );
     
     for(int i = 0; i < 3; i++) sindex[i] = _NIM[5 + i]; //get the last three digit from NIM
     x = atoi(sindex) - 1; //get index from NIM
     
+    if(strcmp(siswa[x].NIM, "")) { printf("NIM already exist.\n"); return;} 
+    
+    printf("Masukkan nama   : "); scanf(" %[^\n]", _name    );
+    printf("Masukkan gender : "); scanf(" %[^\n]", _gender  );
+    printf("Masukkan IPK    : "); scanf(" %s"   , _ipk     );
+    
+    printf("%d\n", x);
+    
     strcpy(siswa[x].NIM,  _NIM      );
     strcpy(siswa[x].name, _name     );
     strcpy(siswa[x].jk,   _gender   );
-    siswa[x].IPK = _ipk;
+    strcpy(siswa[x].IPK,  _ipk      );
     
     fseek (file, x * sizeof(mahasiswa), SEEK_SET);
     fwrite(&siswa[x], sizeof(mahasiswa), 1, file);
@@ -100,7 +105,7 @@ void UpdateData(FILE* file){
     int c;
     printf("%-9s%-21s%-11s%-5s\n",
         "NIM","Nama Mahasiswa","Kelamin","IPK");
-    printf("%-9.8s%-21.20s%-11.10s%-5.2f\n", 
+    printf("%-9.8s%-21.20s%-11.10s%-5s\n", 
         siswa[x].NIM, siswa[x].name, siswa[x].jk, siswa[x].IPK);
         
     if(!strcmp(siswa[x].NIM, "")){
@@ -115,8 +120,8 @@ void UpdateData(FILE* file){
                     finish = 1;
                 break;
                 case 2:
-                    printf("Enter new IPK  : "); scanf(" %f", &fChange);
-                    siswa[x].IPK = fChange;
+                    printf("Enter new IPK  : "); scanf(" %[^\n]", nChange);
+                    strcpy(siswa[x].IPK, nChange);
                     finish = 1;
                 break;
                 default:
@@ -148,9 +153,9 @@ void DeleteData(FILE *file){
     strcpy(siswa[x].NIM,  "");
     strcpy(siswa[x].name, "");
     strcpy(siswa[x].jk,   "");
-    siswa[x].IPK = 0;
+    strcpy(siswa[x].IPK,  "");
     
-    printf("%-9.8s%-21.20s%-11.10s%-5.2f\n", 
+    printf("%-9.8s%-21.20s%-11.10s%-5s\n", 
                 siswa[x].NIM, siswa[x].name, siswa[x].jk, siswa[x].IPK);
     
     fseek (file, x * sizeof(mahasiswa), SEEK_SET);
@@ -166,7 +171,7 @@ void PrintData(){
         "NIM","Nama Mahasiswa","Kelamin","IPK");
     for(int i = 0; i < MHSCOUNT; i++){
         if(strcmp(siswa[i].NIM, ""))
-            printf("%-9.8s%-21.20s%-11.10s%-5.2f\n", 
+            printf("%-9.8s%-21.20s%-11.10s%-5s\n", 
                 siswa[i].NIM, siswa[i].name, siswa[i].jk, siswa[i].IPK);
     }
 }
@@ -192,7 +197,7 @@ void Export(char file[]){
         "NIM","Nama Mahasiswa","Kelamin","IPK");
     for(int i = 0; i < MHSCOUNT; i++){
         if(strcmp(siswa[i].NIM, ""))
-            fprintf(filePtr, "%-9.8s%-21.20s%-11.10s%-5.2f\n", 
+            fprintf(filePtr, "%-9.8s%-21.20s%-11.10s%-5s\n", 
                 siswa[i].NIM, siswa[i].name, siswa[i].jk, siswa[i].IPK);
     }
     printf("\nExport Complete ...\n");
