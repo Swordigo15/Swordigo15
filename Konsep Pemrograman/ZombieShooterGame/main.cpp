@@ -73,15 +73,7 @@ int main()
 	ground.setPosition(window.getSize().x / 2, window.getSize().y * .85f);
 	ground.setFillColor(sf::Color::Green);
 	
-	sf::RectangleShape zombie(sf::Vector2f(40, 100));
-	zombie.setOrigin(zombie.getSize().x/2, zombie.getSize().y/2);
-	zombie.setPosition((float)Random(30, 1030), 530);
-	
-	std::vector<Enemy> enemies;
-	
-	sf::RectangleShape zombieb(sf::Vector2f(400, 1000));
-	zombieb.setOrigin(zombieb.getSize().x/2, zombieb.getSize().y/2);
-	zombieb.setPosition(210, 530);	
+	std::vector<Enemy> enemies;	
 		
 	float deltaTime = 0.0f;
 	float timeCount = 0.0f;
@@ -143,7 +135,6 @@ int main()
     	ui.Update(window);
 				
 		//Zombie Move
-		if(zombie.getSize().x < 400 && zombie.getSize().y < 1000)
 			
         //Shoot Cool Down Text
         timeCountText.setCharacterSize(24);
@@ -160,12 +151,9 @@ int main()
 		
 		window.draw(timeCountText);
 		
-		for(int i = 0; i > zIndex; i--){
-			in = zIndex - i;
-			enemies[in].Draw(window);	
+		for(int i = zIndex - 1; i > 0; --i){
+			enemies[i].Draw(window);	
 		}
-		//window.draw(zombie);
-		//window.draw(zombieb);
 		
 		ui.Draw(window);
 		
@@ -179,4 +167,3 @@ int main()
 int Random(int x, int y){
 	return x + (rand() % y);	
 }
-
